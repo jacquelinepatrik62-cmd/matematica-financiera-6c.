@@ -68,18 +68,18 @@
         .member-name { font-weight: 700; color: var(--uae-blue); font-size: 0.95rem; margin-top: 5px; }
 
         /* FORMULARIO INTERACTIVO PARA PUBLICAR */
-        .publicar-box { background: #f8fafc; border: 2px dashed var(--uae-blue); border-radius: 12px; padding: 20px; margin-bottom: 25px; }
-        .publicar-box h3 { color: var(--uae-blue); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .publicar-box { background: #f0fdf4; border: 2px dashed #22c55e; border-radius: 12px; padding: 22px; margin-bottom: 25px; }
+        .publicar-box h3 { color: #166534; margin-bottom: 12px; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
         .form-pub { display: flex; flex-direction: column; gap: 12px; }
-        .form-pub input, .form-pub textarea { padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-family: inherit; }
+        .form-pub input, .form-pub textarea { padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-family: inherit; background: white; }
         .form-pub textarea { resize: vertical; min-height: 80px; }
         .pub-btn { background: var(--accent-green); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 6px; }
         .pub-btn:hover { background: #236327; }
 
         /* TARJETAS DE TEORÍA Y PROCEDIMIENTOS */
-        .theory-card { background: #f1f5f9; border-left: 5px solid var(--uae-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; position: relative; }
+        .theory-card { background: #f1f5f9; border-left: 5px solid var(--uae-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         .theory-card h4 { color: var(--uae-blue); margin-bottom: 10px; font-size: 1.15rem; }
-        .concept-img { width: 100%; max-height: 280px; object-fit: contain; border-radius: 8px; margin-top: 10px; border: 1px solid #cbd5e1; background: white; padding: 5px; }
+        .concept-img { width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; margin-top: 10px; border: 1px solid #cbd5e1; background: white; padding: 5px; }
 
         /* CALCULADORAS */
         .calc-box { background: white; border-radius: 12px; padding: 25px; box-shadow: var(--card-shadow); margin-bottom: 25px; border: 1px solid #e2e8f0; }
@@ -94,7 +94,6 @@
 
         .file-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; margin-top: 20px; }
         .file-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 10px; }
-        .file-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
     </style>
 </head>
 <body>
@@ -159,42 +158,39 @@
     <!-- PESTAÑA 2: TEORÍA Y MURO INTERACTIVO DE PUBLICACIÓN -->
     <div id="tab-teoria" class="tab-content">
         <div class="card">
-            <div class="section-title"><i class="fa-solid fa-book-open"></i> Muro de Conceptos y Procedimientos del Grupo</div>
+            <div class="section-title"><i class="fa-solid fa-book-open"></i> Muro Interactivo de Conceptos y Procedimientos</div>
 
-            <!-- FORMULARIO INTERACTIVO PARA PUBLICAR NUEVOS CONCEPTOS O PROCEDIMIENTOS -->
+            <!-- FORMULARIO INTERACTIVO PARA PUBLICAR -->
             <div class="publicar-box">
                 <h3><i class="fa-solid fa-pen-to-square"></i> Publicar nuevo concepto o procedimiento de ejercicio</h3>
                 <div class="form-pub">
-                    <input type="text" id="pub_titulo" placeholder="Título (Ej: 4. Ejercicio Práctico de Interés Compuesto)">
+                    <input type="text" id="pub_titulo" placeholder="Título (Ej: Procedimiento Ejercicio Grupal 1)">
                     <textarea id="pub_texto" placeholder="Escribe aquí la explicación, fórmula o el procedimiento paso a paso..."></textarea>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                        <label style="font-size: 0.88rem; font-weight: 600; color: #475569;"><i class="fa-solid fa-image"></i> Adjuntar imagen del ejercicio:</label>
+                        <label style="font-size: 0.88rem; font-weight: 600; color: #166534;"><i class="fa-solid fa-image"></i> Adjuntar imagen del ejercicio:</label>
                         <input type="file" id="pub_imagen" accept="image/*" style="font-size: 0.85rem;">
                     </div>
-                    <button class="pub-btn" onclick="publicarContenido()"><i class="fa-solid fa-paper-plane"></i> Publicar en la Web</button>
+                    <button class="pub-btn" onclick="publicarContenido()"><i class="fa-solid fa-paper-plane"></i> Publicar en el Muro</button>
                 </div>
             </div>
 
-            <!-- CONTENEDOR DONDE APARECEN LOS CONCEPTOS (INCLUYE LOS FIJOS Y LOS NUEVOS) -->
+            <!-- CONTENEDOR DEL MURO -->
             <div id="muro_conceptos">
                 <div class="theory-card">
                     <h4>1. Interés Simple</h4>
                     <p>Es el rédito o rendimiento calculado exclusivamente sobre el capital inicial. El capital permanece fijo durante todo el período de la transacción financiera.</p>
                     <p><strong>Fórmulas:</strong> \( I = C \cdot i \cdot t \) &nbsp;|&nbsp; \( M = C + I \)</p>
-                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop&q=80" alt="Interés Simple" class="concept-img">
                 </div>
 
                 <div class="theory-card">
                     <h4>2. Interés Compuesto</h4>
                     <p>Proceso mediante el cual los intereses devengados en cada período se suman al capital inicial (capitalización), generando nuevos intereses en los períodos siguientes.</p>
                     <p><strong>Fórmulas:</strong> \( M = C \cdot (1 + i)^n \) &nbsp;|&nbsp; \( I = M - C \)</p>
-                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80" alt="Interés Compuesto" class="concept-img">
                 </div>
 
                 <div class="theory-card" style="border-left-color: #16a34a;">
                     <h4>3. Conversión de Tasas y Tiempos Homogéneos</h4>
-                    <p>Proceso matemático mediante el cual una tasa de interés expresada en porcentaje (%) se transforma a su equivalente en valor decimal, y el plazo se ajusta a la misma unidad temporal.</p>
-                    <p><em>Ejemplo aplicado:</em> Tasa del \( 7,3\% \) anual y plazo de \( 6 \) meses (\( t = 6/12 = 0,5 \) años).</p>
+                    <p>Proceso matemático mediante el cual una tasa de interés se transforma a decimal, ajustando el plazo para que esté en la misma unidad de medida temporal.</p>
                 </div>
             </div>
         </div>
@@ -281,7 +277,7 @@
             reader.onload = function(e) {
                 contenidoHTML += `<img src="${e.target.result}" alt="Imagen del ejercicio" class="concept-img">`;
                 nuevaCard.innerHTML = contenidoHTML;
-                muro.prepend(nuevaCard); // Lo agrega arriba del todo
+                muro.prepend(nuevaCard);
                 if (window.MathJax) { MathJax.typeset(); }
             };
             reader.readAsDataURL(imagenInput.files[0]);
@@ -291,7 +287,6 @@
             if (window.MathJax) { MathJax.typeset(); }
         }
 
-        // Limpiar formulario
         document.getElementById('pub_titulo').value = '';
         document.getElementById('pub_texto').value = '';
         document.getElementById('pub_imagen').value = '';
