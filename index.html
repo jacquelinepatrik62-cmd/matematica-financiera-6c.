@@ -135,7 +135,7 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
    <i class="fa-brands fa-google-drive" style="font-size:3.5rem; color:#14624b; margin-bottom:12px;"></i>
    <h3 style="color:var(--verde); margin-bottom:8px;">Carpeta Oficial del Grupo 10 en Google Drive</h3>
    <p style="color:var(--gris); margin-bottom:20px; font-size:0.95rem;">
-    Para asegurar que tus compañeras y la profesora puedan ver e interaccionar con los archivos de Excel, imágenes y actividades semanalmente de forma permanente, los documentos se gestionan directamente desde la nube.
+    Accede a los archivos de Excel, imágenes y actividades de forma permanente desde la nube.
    </p>
    <a href="https://drive.google.com/drive/folders/1mugXCMzJgQsPzhpywAQQSjfs-HigaZMl?usp=drive_link" target="_blank" rel="noopener" class="btn xl" style="background:#14624b; color:#fff;">
     <i class="fa-solid fa-folder-open"></i> Abrir Carpeta Compartida en Google Drive
@@ -163,8 +163,16 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* ====== CONFIGURACIÓN ====== */
-const FIREBASE_CONFIG = null;
+/* ====== CONFIGURACIÓN DE FIREBASE ====== */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB__bv-TFyqCbBgDJH-u9K7QKrgVaUtf5g",
+  authDomain: "matematicafinanciera.firebaseapp.com",
+  projectId: "matematicafinanciera",
+  storageBucket: "matematicafinanciera.appspot.com",
+  messagingSenderId: "550483396639",
+  appId: "1:550483396639:web:6b5d987e0b54b42cfe6d2a"
+};
+
 const CLAVE_BORRAR = "grupo10";
 const MIEMBROS = ["Jacqueline Patricia Díaz Solís","Ana Luisa Aguirre Guanapatín","Eduardo Xavier Guzmán Ángel","Fiorella Drouet Costales"];
 const COLORES_TIPO = {'Ejercicio resuelto':'#14624b','Actividad':'#1f7aa6','Archivo Excel':'#1d6f42','Concepto':'#b86e00'};
@@ -209,7 +217,7 @@ function formHTML(p, muro){
 $('form_muro').innerHTML = formHTML('p', true);
 $('form_arch').innerHTML = formHTML('x', false);
 
-/* ====== ALMACENAMIENTO ====== */
+/* ====== ALMACENAMIENTO (FIREBASE) ====== */
 let db = null;
 if (FIREBASE_CONFIG && typeof firebase !== 'undefined') { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.firestore(); }
 const LS = 'mf6c_posts';
@@ -228,7 +236,7 @@ const store = {
 };
 $('aviso').innerHTML = db
   ? '<div class="aviso ok">Publicaciones en línea activas: todo el grupo y la profesora ven lo mismo en tiempo real.</div>'
-  : '<div class="aviso"><b>Nota sobre publicaciones locales:</b> Las publicaciones individuales realizadas mediante formularios del navegador quedan en modo local. Utilicen la <b>Carpeta de Google Drive</b> en la pestaña de archivos para entregas colaborativas permanentes.</div>';
+  : '<div class="aviso"><b>Nota:</b> Firebase se está conectando.</div>';
 
 /* ====== MANEJO DE ARCHIVOS ====== */
 function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
@@ -264,30 +272,30 @@ async function publicar(p){
   $(p+'_err').style.display = 'none';
   if (!tit) return aviso('Escribe un título.');
   if (!txt && !files.length && !link) return aviso('Agrega una descripción, un archivo o un enlace.');
-  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Procesando…';
+  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Publicando…';
   try {
     const imgs = []; let archivo = null;
     for (const f of files) {
       if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
       else if (!archivo) {
-        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB. Súbelo a la carpeta de Google Drive y pega el enlace.');
+        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB.');
         archivo = {nombre:f.name, data:await leer(f)};
       }
     }
     const post = {autor:$(p+'_autor').value, tipo: p === 'p' ? $('p_tipo').value : 'Archivo Excel', titulo:tit, texto:txt, imgs, archivo, link, likes:0, coms:[], ts:Date.now()};
-    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado.');
+    if (JSON.stringify(post).length > 950000) throw new Error('Los archivos pesan demasiado.');
     await store.add(post);
     ['tit','txt','arch','link'].forEach(k => $(p+'_'+k).value = ''); $(p+'_info').textContent = '';
-    toast('Listo, procesado.');
+    toast('¡Publicado en línea con éxito!');
     (p === 'p' ? $('lista') : $('lista_arch')).scrollIntoView({behavior:'smooth'});
   } catch (e) {
-    aviso(e && e.name === 'QuotaExceededError' ? 'Almacenamiento del navegador lleno. Usa la carpeta de Google Drive.' : 'No se pudo subir: ' + (e.message || e));
+    aviso('No se pudo publicar: ' + (e.message || e));
   }
   btn.disabled = false; btn.textContent = etiqueta;
 }
 ['p','x'].forEach(p => { $(p+'_btn').onclick = () => publicar(p); $(p+'_arch').onchange = () => info(p); });
 
-/* ====== MURO Y ARCHIVOS ====== */
+/* ====== RENDERIZAR MURO Y ARCHIVOS ====== */
 const liked = new Set(JSON.parse(localStorage.getItem('mf6c_liked') || '[]'));
 let posts = [];
 function render(){
@@ -295,14 +303,14 @@ function render(){
   <article class="post" data-id="${esc(p.id)}" style="--c:${COLORES_TIPO[p.tipo]||'#14624b'}">
    <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="logo.jpg" alt="UAE"></div>
    <h3>${esc(p.titulo)}</h3><div class="tx">${esc(p.texto)}</div>
-   ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto del procedimiento" loading="lazy">`).join('')}</div>` : ''}
+   ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
    ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
    <div class="acts"><button class="btn s" data-a="like">${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del">Borrar</button></div>
    <div class="coms">
     ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
     <div class="cf"><input class="cn" placeholder="Tu nombre" maxlength="40" value="${esc(localStorage.getItem('mf6c_nombre')||'')}" aria-label="Tu nombre"><input class="ct" placeholder="Escribe un comentario…" maxlength="400" aria-label="Comentario"><button class="btn" data-a="com">Comentar</button></div>
    </div>
-  </article>`).join('') : '<div class="vacio">Aún no hay publicaciones en esta vista.</div>';
+  </article>`).join('') : '<div class="vacio">Aún no hay publicaciones en el muro. ¡Sé la primera en publicar!</div>';
 
   const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
@@ -310,13 +318,13 @@ function render(){
    ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div><div>${p.imgs.map((s,i)=>`<button type="button" class="arch" data-dli="${esc(p.id)}:${i}">Descargar foto ${i+1}</button>`).join('')}</div>` : ''}
    ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
    <div class="acts"><button class="btn s" data-a="del">Borrar</button></div></div>`).join('')
-   : '<div class="vacio" style="grid-column:1/-1">Vista previa local vacía. Utilicen la Carpeta Oficial de Google Drive arriba para revisar todos los archivos subidos por el grupo.</div>';
+   : '<div class="vacio" style="grid-column:1/-1">No hay archivos locales en esta vista. Recuerda que también tienes tu Carpeta de Google Drive arriba.</div>';
 }
 document.addEventListener('click', async e => {
   if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
   if (e.target.closest('#lb')) { $('lb').style.display = 'none'; return; }
   const d = e.target.closest('[data-dl]');
-  if (d) { const p = posts.find(x => x.id === d.dataset.dl); if (p && p.archivo) { try { descargar(p.archivo); } catch (err) { toast('No se pudo descargar: ' + err.message); } } return; }
+  if (d) { const p = posts.find(x => x.id === d.dataset.dl); if (p && p.archivo) { try { descargar(p.archivo); } catch (err) { toast('Error al descargar: ' + err.message); } } return; }
   const di = e.target.closest('[data-dli]');
   if (di) { const [pid, ix] = di.dataset.dli.split(':'); const p = posts.find(x => x.id === pid); if (p && p.imgs && p.imgs[ix]) descargar({nombre:'foto-'+(+ix+1)+'.jpg', data:p.imgs[ix]}); return; }
   const b = e.target.closest('[data-a]'); if (!b) return;
