@@ -1,368 +1,305 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Integrador de Matemática Financiera - UAE</title>
-    <!-- FontAwesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- MathJax para fórmulas matemáticas -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <style>
-        :root {
-            --uae-blue: #002b5c;
-            --uae-blue-light: #004080;
-            --uae-gold: #ffc107;
-            --accent-green: #16a34a;
-            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f8fafc; color: #1e293b; line-height: 1.6; }
-
-        header {
-            background: linear-gradient(135deg, #001f3f 0%, #002b5c 50%, #004080 100%);
-            color: white; padding: 45px 20px 35px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            position: relative;
-        }
-
-        .header-content { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 25px; flex-wrap: wrap; }
-        .header-logo-box { 
-            width: 110px; height: 110px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            border: 4px solid var(--uae-gold); box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
-        }
-
-        .header-text h1 { font-size: 2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); }
-        .header-text h2 { font-size: 1.15rem; font-weight: 600; color: #f8fafc; margin-bottom: 12px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-        
-        .badges-container { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .badge-paralelo { background: var(--uae-gold); color: var(--uae-blue); padding: 8px 22px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; }
-        .badge-grupo { background: #22c55e; color: white; padding: 8px 22px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; }
-
-        .nav-tabs { display: flex; justify-content: center; background: var(--uae-blue); padding: 10px 10px; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .nav-tabs button { background: rgba(255,255,255,0.08); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); padding: 12px 24px; font-size: 0.95rem; font-weight: 700; cursor: pointer; border-radius: 8px; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-        .nav-tabs button:hover { background: rgba(255,255,255,0.2); color: white; }
-        .nav-tabs button.active { background: var(--uae-gold); color: var(--uae-blue); font-weight: 800; border-color: var(--uae-gold); }
-
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .tab-content.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-        .card { background: white; border-radius: 14px; padding: 30px; box-shadow: var(--card-shadow); margin-bottom: 25px; border-top: 6px solid var(--uae-blue); }
-        .section-title { color: var(--uae-blue); font-size: 1.45rem; font-weight: 800; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
-
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 20px; }
-        .member-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; text-align: center; }
-        .avatar-box { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; border: 3px solid var(--uae-blue); background: #e2e8f0; overflow: hidden; }
-        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .member-name { font-weight: 700; color: var(--uae-blue); font-size: 0.98rem; margin-top: 5px; }
-
-        .publicar-box { background: #f0fdf4; border: 2px dashed #22c55e; border-radius: 12px; padding: 22px; margin-bottom: 25px; }
-        .publicar-box h3 { color: #15803d; margin-bottom: 12px; font-size: 1.15rem; font-weight: 700; }
-        .form-pub { display: flex; flex-direction: column; gap: 12px; }
-        .form-pub input, .form-pub textarea { padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; font-family: inherit; background: white; }
-        .form-pub textarea { resize: vertical; min-height: 90px; }
-        
-        .pub-btn { background: var(--accent-green); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; }
-        .pub-btn:hover { background: #15803d; }
-
-        /* TARJETAS CON BOTÓN DE ELIMINAR */
-        .theory-card { background: #f8fafc; border-left: 5px solid var(--uae-blue); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e2e8f0; border-left-width: 5px; position: relative; }
-        .theory-card h4 { color: var(--uae-blue); margin-bottom: 10px; font-size: 1.15rem; font-weight: 700; padding-right: 80px; }
-        .concept-img { width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; margin-top: 12px; border: 1px solid #cbd5e1; background: white; padding: 5px; }
-
-        .btn-eliminar { position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .btn-eliminar:hover { background: #dc2626; }
-
-        .calc-box { background: white; border-radius: 14px; padding: 25px; box-shadow: var(--card-shadow); margin-bottom: 25px; border: 1px solid #e2e8f0; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-weight: 700; font-size: 0.9rem; color: #334155; }
-        .form-group input, .form-group select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
-        
-        .result-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid var(--accent-green); padding: 16px; border-radius: 8px; color: #166534; }
-        .result-main { font-size: 1.05rem; font-weight: 800; }
-        .step-by-step { font-size: 0.9rem; color: #15803d; border-top: 1px dashed #bbf7d0; padding-top: 8px; margin-top: 8px; }
-
-        .file-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
-        .file-card { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 10px; position: relative; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matemática Financiera · Grupo 10 · UAE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#0b3b2e;--verde2:#14624b;--hoja:#bfe35a;--oro:#e8b730;--fondo:#f1f5f2;--tinta:#16251f;--gris:#5d6e66;--linea:#d9e3dd}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--fondo);color:var(--tinta);line-height:1.6}
+h1,h2,h3{font-family:'Bricolage Grotesque','Source Sans 3',sans-serif;line-height:1.15}
+.hero{background:var(--verde);color:#fff;padding:56px 20px 70px;position:relative;overflow:hidden}
+.hero-in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.uni{font-size:.95rem;color:var(--hoja);font-weight:700;margin-bottom:14px}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;margin-bottom:14px}
+.hero p{max-width:52ch;color:#d3e6dc;margin-bottom:20px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{padding:6px 16px;border-radius:99px;font-weight:700;font-size:.9rem}
+.c1{background:var(--oro);color:var(--verde)}.c2{background:var(--hoja);color:var(--verde)}
+.curva{width:100%;height:auto}
+nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--linea);display:flex;justify-content:center;gap:4px;padding:8px;flex-wrap:wrap}
+nav button{border:0;background:none;padding:10px 18px;border-radius:8px;font:700 .95rem 'Source Sans 3',sans-serif;color:var(--gris);cursor:pointer}
+nav button:hover{background:var(--fondo);color:var(--verde)}
+nav button.on{background:var(--verde);color:#fff}
+nav button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+main{max-width:1080px;margin:0 auto;padding:30px 18px 60px}
+.tab{display:none}.tab.on{display:block}
+h2{font-size:1.7rem;color:var(--verde);margin-bottom:6px}
+.sub{color:var(--gris);margin-bottom:22px}
+.panel{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:22px;margin-bottom:20px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.m{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:22px;text-align:center}
+.av{width:96px;height:96px;border-radius:50%;margin:0 auto 12px;position:relative;overflow:hidden;display:grid;place-items:center;font:800 1.9rem 'Bricolage Grotesque';color:#fff;border:3px solid var(--oro)}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.m b{display:block;color:var(--verde)}.m span{font-size:.85rem;color:var(--gris)}
+.aviso{background:#fff7dc;border:1px solid var(--oro);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:.92rem}
+.aviso.ok{background:#e6f5ec;border-color:var(--verde2)}
+.f{display:grid;gap:10px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid #c3d1c9;border-radius:8px;font:inherit;background:#fff}
+textarea{min-height:100px;resize:vertical}
+label{font-weight:700;font-size:.88rem;color:var(--verde)}
+.btn{border:0;background:var(--verde2);color:#fff;padding:11px 22px;border-radius:8px;font:700 .95rem 'Source Sans 3';cursor:pointer;justify-self:start}
+.btn:hover{background:var(--verde)}.btn:disabled{opacity:.6;cursor:wait}
+.btn.s{background:none;color:var(--verde2);border:1px solid var(--linea);padding:6px 12px;font-size:.85rem}
+.btn.s:hover{background:var(--fondo)}
+.post{background:#fff;border:1px solid var(--linea);border-left:6px solid var(--verde2);border-radius:12px;padding:20px;margin-bottom:18px}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pa{width:42px;height:42px;border-radius:50%;background:var(--verde2);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.ph small{color:var(--gris);display:block;font-size:.8rem}
+.tag{margin-left:auto;background:#e6f5ec;color:var(--verde2);font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:99px}
+.post h3{font-size:1.2rem;margin-bottom:6px;color:var(--verde)}
+.post .tx{white-space:pre-wrap;max-width:75ch}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.imgs img{width:100%;height:170px;object-fit:cover;border-radius:8px;border:1px solid var(--linea);cursor:zoom-in}
+.arch{display:inline-flex;gap:8px;align-items:center;margin-top:12px;padding:8px 14px;background:var(--fondo);border:1px solid var(--linea);border-radius:8px;color:var(--verde);font-weight:700;text-decoration:none;font-size:.9rem}
+.acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.coms{margin-top:14px;border-top:1px solid var(--linea);padding-top:12px}
+.com{background:var(--fondo);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:.93rem}
+.com b{color:var(--verde)}.com small{color:var(--gris);margin-left:6px}
+.cf{display:grid;grid-template-columns:150px 1fr auto;gap:8px;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.calc{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:20px}
+.calc h3{color:var(--verde);margin-bottom:12px}
+.calc .f{margin-bottom:12px}
+.res{background:#e6f5ec;border-left:5px solid var(--verde2);border-radius:8px;padding:12px 14px}
+.res b{display:block;font-size:1.05rem;color:var(--verde)}.res small{color:var(--gris)}
+.vacio{text-align:center;color:var(--gris);padding:34px;border:2px dashed var(--linea);border-radius:12px}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:50;cursor:zoom-out}
+#lb img{max-width:92vw;max-height:90vh;border-radius:8px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--verde);color:#fff;padding:11px 20px;border-radius:8px;display:none;z-index:60;max-width:90vw}
+footer{text-align:center;color:var(--gris);font-size:.85rem;padding:20px}
+@media(max-width:760px){.hero-in{grid-template-columns:1fr}.fr,.cf{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-<header>
-    <div class="header-content">
-        <div class="header-logo-box">
-            <i class="fa-solid fa-graduation-cap" style="font-size: 3.2rem; color: var(--uae-blue);"></i>
-        </div>
-        <div class="header-text">
-            <h1>Universidad Agraria del Ecuador</h1>
-            <h2>Facultad de Ciencias Agrarias | Ingeniería en Computación</h2>
-            <p style="font-size: 1.05rem; margin-bottom: 12px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);"><strong>Proyecto Integrador de Matemática Financiera</strong> — Primer Parcial</p>
-            <div class="badges-container">
-                <span class="badge-paralelo"><i class="fa-solid fa-users-rectangle"></i> Paralelo: 6C</span>
-                <span class="badge-grupo"><i class="fa-solid fa-people-group"></i> Grupo_10</span>
-            </div>
-        </div>
-    </div>
+<header class="hero">
+ <div class="hero-in">
+  <div>
+   <div class="uni">Universidad Agraria del Ecuador · Ingeniería en Computación</div>
+   <h1>Matemática Financiera: del capital al monto</h1>
+   <p>Proyecto Integrador, primer parcial. Aquí el grupo publica sus ejercicios resueltos, fotos de los procedimientos y archivos de Excel.</p>
+   <div class="chips"><span class="chip c1">Paralelo 6C</span><span class="chip c2">Grupo 10</span></div>
+  </div>
+  <svg class="curva" viewBox="0 0 400 260" role="img" aria-label="Curva de crecimiento de un capital: el interés compuesto crece más rápido que el simple">
+   <g stroke="#ffffff22"><path d="M30 220H380M30 170H380M30 120H380M30 70H380M30 20H380"/></g>
+   <path d="M30 200L380 120" stroke="#bfe35a" stroke-width="3" fill="none" stroke-dasharray="7 6"/>
+   <path d="M30 200Q220 190 380 30" stroke="#e8b730" stroke-width="5" fill="none" stroke-linecap="round"/>
+   <circle cx="30" cy="200" r="7" fill="#fff"/><circle cx="380" cy="30" r="7" fill="#e8b730"/><circle cx="380" cy="120" r="6" fill="#bfe35a"/>
+   <text x="36" y="245" fill="#d3e6dc" font-size="13">Tiempo →</text>
+   <text x="236" y="78" fill="#e8b730" font-size="14" font-weight="700">Interés compuesto</text>
+   <text x="236" y="156" fill="#bfe35a" font-size="14" font-weight="700">Interés simple</text>
+  </svg>
+ </div>
 </header>
 
-<div class="nav-tabs">
-    <button onclick="cambiarTab(event, 'tab-inicio')" class="active"><i class="fa-solid fa-house"></i> Inicio / Integrantes</button>
-    <button onclick="cambiarTab(event, 'tab-teoria')"><i class="fa-solid fa-book"></i> Teoría y Ejercicios (Muro)</button>
-    <button onclick="cambiarTab(event, 'tab-calculadoras')"><i class="fa-solid fa-calculator"></i> Calculadoras Interactivas</button>
-    <button onclick="cambiarTab(event, 'tab-evidencias')"><i class="fa-solid fa-folder-open"></i> Excel y Archivos</button>
-</div>
+<nav aria-label="Secciones">
+ <button class="on" data-t="inicio">Integrantes</button>
+ <button data-t="muro">Muro del grupo</button>
+ <button data-t="archivos">Archivos y Excel</button>
+ <button data-t="calc">Calculadoras</button>
+</nav>
 
-<div class="container">
+<main>
+ <section class="tab on" id="inicio">
+  <h2>Integrantes del Grupo 10</h2>
+  <p class="sub">Computación, paralelo 6C. Para poner tu foto, sube al repositorio foto1.jpg, foto2.jpg, foto3.jpg o foto4.jpg junto a este archivo.</p>
+  <div class="team" id="team"></div>
+  <div class="panel" style="margin-top:20px">
+   <h3 style="color:var(--verde);margin-bottom:8px">Fórmulas base</h3>
+   <p><b>Interés simple:</b> I = C · i · t &nbsp;|&nbsp; M = C + I</p>
+   <p><b>Descuento simple:</b> D = M · d · t &nbsp;|&nbsp; VT = M − D</p>
+   <p><b>Interés compuesto:</b> M = C · (1 + i)ⁿ</p>
+  </div>
+ </section>
 
-    <!-- PESTAÑA 1 -->
-    <div id="tab-inicio" class="tab-content active">
-        <div class="card">
-            <div class="section-title"><i class="fa-solid fa-id-card"></i> Portada del Proyecto & Integrantes del Grupo</div>
-            <p style="margin-bottom: 15px; color: #475569;">Plataforma web interactiva desarrollada para la resolución, simulación y validación paso a paso de problemas prácticos de Matemática Financiera.</p>
-            <div class="team-grid">
-                <div class="member-card">
-                    <div class="avatar-box"><img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'" alt="Jacqueline Díaz"></div>
-                    <div class="member-name">Jacqueline Patricia Díaz Solís</div>
-                    <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-box"><img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'" alt="Ana Aguirre"></div>
-                    <div class="member-name">Ana Luisa Aguirre Guanapatín</div>
-                    <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-box"><img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80'" alt="Eduardo Guzmán"></div>
-                    <div class="member-name">Eduardo Xavier Guzmán Ángel</div>
-                    <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-box"><img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'" alt="Fiorella Drouet"></div>
-                    <div class="member-name">Fiorella Drouet Costales</div>
-                    <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
-                </div>
-            </div>
-        </div>
+ <section class="tab" id="muro">
+  <h2>Muro del grupo</h2>
+  <p class="sub">Publica ejercicios, actividades y procedimientos. Todos pueden comentar y dar “Me sirve”.</p>
+  <div id="aviso"></div>
+  <div class="panel">
+   <h3 style="color:var(--verde);margin-bottom:12px">Nueva publicación</h3>
+   <div class="f">
+    <div class="fr">
+     <div><label for="p_autor">Publica</label><select id="p_autor"></select></div>
+     <div><label for="p_tipo">Tipo</label><select id="p_tipo"><option>Ejercicio resuelto</option><option>Actividad</option><option>Archivo Excel</option><option>Concepto</option></select></div>
     </div>
+    <div><label for="p_tit">Título</label><input id="p_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
+    <div><label for="p_txt">Procedimiento o explicación</label><textarea id="p_txt" placeholder="Escribe el paso a paso del ejercicio…"></textarea></div>
+    <div><label for="p_arch">Fotos (hasta 4) o un archivo Excel, PDF o Word (máx. 600 KB)</label><input type="file" id="p_arch" multiple accept="image/*,.xlsx,.xls,.pdf,.docx"></div>
+    <button class="btn" id="p_btn">Publicar en el muro</button>
+   </div>
+  </div>
+  <div id="lista"></div>
+ </section>
 
-    <!-- PESTAÑA 2: MURO -->
-    <div id="tab-teoria" class="tab-content">
-        <div class="card">
-            <div class="section-title"><i class="fa-solid fa-book-open"></i> Muro Interactivo de Conceptos y Procedimientos</div>
+ <section class="tab" id="archivos">
+  <h2>Archivos y Excel</h2>
+  <p class="sub">Todo lo que el grupo adjunta en el muro aparece aquí para descargarlo.</p>
+  <div class="grid" id="lista_arch"></div>
+ </section>
 
-            <div class="publicar-box">
-                <h3><i class="fa-solid fa-pen-to-square"></i> Publicar nuevo concepto o procedimiento</h3>
-                <div class="form-pub">
-                    <input type="text" id="pub_titulo" placeholder="Título (Ej: EJERCICIO #1 - Conversión de Tasas)">
-                    <textarea id="pub_texto" placeholder="Escribe la explicación o el procedimiento paso a paso..."></textarea>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                        <label style="font-size: 0.88rem; font-weight: 700; color: #15803d;"><i class="fa-solid fa-image"></i> Adjuntar foto del ejercicio:</label>
-                        <input type="file" id="pub_imagen" accept="image/*" style="font-size: 0.85rem;">
-                    </div>
-                    <button class="pub-btn" onclick="publicarContenido()"><i class="fa-solid fa-paper-plane"></i> Publicar en el Muro</button>
-                </div>
-            </div>
+ <section class="tab" id="calc">
+  <h2>Calculadoras interactivas</h2>
+  <p class="sub">Cambia los valores y mira el procedimiento paso a paso.</p>
+  <div class="grid" id="calcs"></div>
+ </section>
+</main>
 
-            <div id="muro_conceptos">
-                <div class="theory-card">
-                    <button class="btn-eliminar" onclick="eliminarTarjeta(this)"><i class="fa-solid fa-trash"></i> Borrar</button>
-                    <h4>1. Interés Simple</h4>
-                    <p>Es el rédito o rendimiento calculado exclusivamente sobre el capital inicial. El capital permanece fijo durante todo el período de la transacción financiera.</p>
-                    <p><strong>Fórmulas:</strong> \( I = C \cdot i \cdot t \) &nbsp;|&nbsp; \( M = C + I \)</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<footer>Proyecto Integrador de Matemática Financiera · Grupo 10 · Paralelo 6C · UAE</footer>
+<div id="lb"><img alt="Imagen ampliada"></div>
+<div id="toast" role="status"></div>
 
-    <!-- PESTAÑA 3 -->
-    <div id="tab-calculadoras" class="tab-content">
-        <div class="calc-box">
-            <div class="section-title"><i class="fa-solid fa-percent"></i> 1. Interés Simple</div>
-            <div class="form-grid">
-                <div class="form-group"><label>Capital Inicial (C):</label><input type="number" id="is_c" value="1000" step="any" oninput="calcularInteresSimple()"></div>
-                <div class="form-group"><label>Tasa Anual % (i):</label><input type="number" id="is_i" value="5" step="any" oninput="calcularInteresSimple()"></div>
-                <div class="form-group"><label>Tiempo en años (t):</label><input type="number" id="is_t" value="2" step="any" oninput="calcularInteresSimple()"></div>
-            </div>
-            <div class="result-box" id="res_is"></div>
-        </div>
-
-        <div class="calc-box">
-            <div class="section-title"><i class="fa-solid fa-money-bill-wave"></i> 2. Descuento Simple</div>
-            <div class="form-grid">
-                <div class="form-group"><label>Valor Nominal (M):</label><input type="number" id="ds_m" value="2500" step="any" oninput="calcularDescuentoSimple()"></div>
-                <div class="form-group"><label>Tasa Descuento % (d):</label><input type="number" id="ds_d" value="8" step="any" oninput="calcularDescuentoSimple()"></div>
-                <div class="form-group"><label>Tiempo en años (t):</label><input type="number" id="ds_t" value="1.5" step="any" oninput="calcularDescuentoSimple()"></div>
-            </div>
-            <div class="result-box" id="res_ds"></div>
-        </div>
-
-        <div class="calc-box">
-            <div class="section-title"><i class="fa-solid fa-chart-line"></i> 3. Interés Compuesto</div>
-            <div class="form-grid">
-                <div class="form-group"><label>Capital Inicial (C):</label><input type="number" id="ic_c" value="1000" step="any" oninput="calcularInteresCompuesto()"></div>
-                <div class="form-group"><label>Tasa Anual % (i):</label><input type="number" id="ic_i" value="6" step="any" oninput="calcularInteresCompuesto()"></div>
-                <div class="form-group"><label>Periodos / Años (n):</label><input type="number" id="ic_n" value="3" step="any" oninput="calcularInteresCompuesto()"></div>
-            </div>
-            <div class="result-box" id="res_ic"></div>
-        </div>
-    </div>
-
-    <!-- PESTAÑA 4: ARCHIVOS -->
-    <div id="tab-evidencias" class="tab-content">
-        <div class="card">
-            <div class="section-title"><i class="fa-solid fa-folder-open"></i> Archivos y Excel del Grupo 10</div>
-            
-            <div class="publicar-box">
-                <h3><i class="fa-solid fa-cloud-arrow-up"></i> Cargar Archivos, Fotos o Actividades</h3>
-                <p style="font-size: 0.9rem; color: #475569; margin-bottom: 12px;">Selecciona archivos desde tu equipo para previsualizarlos en esta pestaña:</p>
-                <input type="file" id="archivo_input" multiple accept="image/*, .xlsx, .xls, .pdf, .docx" style="display: none;" onchange="subirArchivoPestana(event)">
-                <button class="pub-btn" onclick="document.getElementById('archivo_input').click()"><i class="fa-solid fa-plus"></i> Seleccionar Archivos</button>
-            </div>
-
-            <div class="file-list" id="lista_archivos">
-                <div class="file-card">
-                    <button class="btn-eliminar" onclick="eliminarTarjeta(this)"><i class="fa-solid fa-trash"></i> Borrar</button>
-                    <div style="font-size: 2.5rem; text-align: center; color: var(--uae-blue); padding: 15px 0;"><i class="fa-solid fa-file-excel"></i></div>
-                    <div style="font-weight: 700; font-size: 0.88rem; text-align: center;">Ejemplo_Conversion_Tasas.xlsx</div>
-                    <div style="font-size: 0.85rem; color: #475569; background: #f8fafc; padding: 8px; border-radius: 4px; border-left: 3px solid var(--uae-gold);">Resolución de conversión de tasas con 7,3% anual y plazo de 6 meses.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
+<!-- Firebase (necesario para que todos vean lo mismo). Se usa solo si pegas tu configuración abajo. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-    function cambiarTab(evt, tabId) {
-        let contents = document.getElementsByClassName("tab-content");
-        for (let c of contents) { c.classList.remove("active"); }
-        let buttons = document.getElementsByClassName("nav-tabs")[0].getElementsByTagName("button");
-        for (let b of buttons) { b.classList.remove("active"); }
-        document.getElementById(tabId).classList.add("active");
-        evt.currentTarget.classList.add("active");
+/* ====== CONFIGURACIÓN ====== */
+// Pega aquí el objeto firebaseConfig de tu proyecto (ver instrucciones). Mientras esté en null, se guarda solo en este navegador.
+const FIREBASE_CONFIG = null;
+// Clave que se pide para BORRAR publicaciones (cámbiala y compártela solo con el grupo).
+const CLAVE_BORRAR = "grupo10";
+const MIEMBROS = ["Jacqueline Patricia Díaz Solís","Ana Luisa Aguirre Guanapatín","Eduardo Xavier Guzmán Ángel","Fiorella Drouet Costales"];
+
+/* ====== UTILIDADES ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ini = n => n.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
+const fecha = t => new Date(t).toLocaleString('es-EC',{dateStyle:'medium',timeStyle:'short'});
+const money = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',3500)}
+
+/* ====== PESTAÑAS ====== */
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  b.classList.add('on'); $(b.dataset.t).classList.add('on');
+  window.scrollTo({top: document.querySelector('nav').offsetTop, behavior:'smooth'});
+});
+
+/* ====== INTEGRANTES ====== */
+const colores = ['#14624b','#2a7f9e','#9a5b13','#6b4a9e'];
+$('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
+$('p_autor').innerHTML = MIEMBROS.map(n => `<option>${esc(n)}</option>`).join('');
+
+/* ====== ALMACENAMIENTO (Firebase o local) ====== */
+let db = null;
+if (FIREBASE_CONFIG && typeof firebase !== 'undefined') { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.firestore(); }
+const LS = 'mf6c_posts';
+const loc = { get(){try{return JSON.parse(localStorage.getItem(LS))||[]}catch(e){return[]}}, set(a){localStorage.setItem(LS,JSON.stringify(a))} };
+let cbLocal = null;
+function mutLocal(id, fn){const a=loc.get();const p=a.find(x=>x.id===id);if(p){fn(p);loc.set(a);cbLocal(a)}}
+const store = {
+  sub(cb){
+    if (db) db.collection('posts').orderBy('ts','desc').onSnapshot(s => cb(s.docs.map(d => ({id:d.id,...d.data()}))), e => toast('No se pudo leer: '+e.message));
+    else { cbLocal = cb; cb(loc.get()); }
+  },
+  async add(p){ if(db) await db.collection('posts').add(p); else { const a=loc.get(); a.unshift({...p,id:'l'+Date.now()}); loc.set(a); cbLocal(a); } },
+  async del(id){ if(db) await db.collection('posts').doc(id).delete(); else { const a=loc.get().filter(x=>x.id!==id); loc.set(a); cbLocal(a); } },
+  async like(id){ if(db) await db.collection('posts').doc(id).update({likes:firebase.firestore.FieldValue.increment(1)}); else mutLocal(id,p=>p.likes=(p.likes||0)+1); },
+  async comment(id,c){ if(db) await db.collection('posts').doc(id).update({coms:firebase.firestore.FieldValue.arrayUnion(c)}); else mutLocal(id,p=>(p.coms=p.coms||[]).push(c)); }
+};
+$('aviso').innerHTML = db
+  ? '<div class="aviso ok">Publicaciones en línea: todo el grupo y la profesora ven lo mismo y nada se borra al cerrar la página.</div>'
+  : '<div class="aviso"><b>Modo local:</b> lo que publiques solo se guarda en este navegador. Para que todo el grupo y la profesora vean las mismas publicaciones, conecta Firebase (pasos en la guía).</div>';
+
+/* ====== ARCHIVOS E IMÁGENES ====== */
+function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
+async function comprimir(file,max=900,q=.72){
+  const src = await leer(file);
+  return new Promise((ok,no)=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height));const c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q))};i.src=src});
+}
+
+/* ====== PUBLICAR ====== */
+$('p_btn').onclick = async () => {
+  const tit = $('p_tit').value.trim(), txt = $('p_txt').value.trim();
+  if (!tit || !txt) return toast('Escribe al menos el título y el procedimiento.');
+  const btn = $('p_btn'); btn.disabled = true; btn.textContent = 'Publicando…';
+  try {
+    const imgs = []; let archivo = null;
+    for (const f of $('p_arch').files) {
+      if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
+      else if (!archivo) {
+        if (f.size > 600*1024) throw new Error('El archivo “'+f.name+'” pesa más de 600 KB.');
+        archivo = {nombre:f.name, data:await leer(f)};
+      }
     }
+    const post = {autor:$('p_autor').value, tipo:$('p_tipo').value, titulo:tit, texto:txt, imgs, archivo, likes:0, coms:[], ts:Date.now()};
+    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado. Sube menos fotos por publicación.');
+    await store.add(post);
+    $('p_tit').value = ''; $('p_txt').value = ''; $('p_arch').value = '';
+    toast('Publicado en el muro.');
+  } catch (e) { toast('No se pudo publicar: ' + (e.message || e)); }
+  btn.disabled = false; btn.textContent = 'Publicar en el muro';
+};
 
-    // ELIMINAR CUALQUIER TARJETA
-    function eliminarTarjeta(boton) {
-        if (confirm("¿Estás segura de borrar esta publicación/archivo?")) {
-            boton.parentElement.remove();
-        }
+/* ====== MURO ====== */
+const liked = new Set(JSON.parse(localStorage.getItem('mf6c_liked') || '[]'));
+let posts = [];
+function render(){
+  $('lista').innerHTML = posts.length ? posts.map(p => `
+  <article class="post" data-id="${esc(p.id)}">
+   <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span></div>
+   <h3>${esc(p.titulo)}</h3><div class="tx">${esc(p.texto)}</div>
+   ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto del procedimiento" loading="lazy">`).join('')}</div>` : ''}
+   ${p.archivo ? `<a class="arch" href="${p.archivo.data}" download="${esc(p.archivo.nombre)}">Descargar ${esc(p.archivo.nombre)}</a>` : ''}
+   <div class="acts"><button class="btn s" data-a="like">${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del">Borrar</button></div>
+   <div class="coms">
+    ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
+    <div class="cf"><input class="cn" placeholder="Tu nombre" maxlength="40" value="${esc(localStorage.getItem('mf6c_nombre')||'')}" aria-label="Tu nombre"><input class="ct" placeholder="Escribe un comentario…" maxlength="400" aria-label="Comentario"><button class="btn" data-a="com">Comentar</button></div>
+   </div>
+  </article>`).join('') : '<div class="vacio">Aún no hay publicaciones. Sube el primer ejercicio del grupo.</div>';
+
+  const conArch = posts.filter(p => p.archivo || (p.imgs && p.imgs.length));
+  $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
+   <div class="calc"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
+   ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
+   ${p.archivo ? `<a class="arch" href="${p.archivo.data}" download="${esc(p.archivo.nombre)}">Descargar ${esc(p.archivo.nombre)}</a>` : ''}</div>`).join('')
+   : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Adjúntalos al publicar en el muro.</div>';
+}
+document.addEventListener('click', async e => {
+  if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
+  if (e.target.closest('#lb')) { $('lb').style.display = 'none'; return; }
+  const b = e.target.closest('[data-a]'); if (!b) return;
+  const card = b.closest('.post'), id = card.dataset.id;
+  try {
+    if (b.dataset.a === 'like') {
+      if (liked.has(id)) return toast('Ya marcaste esta publicación.');
+      liked.add(id); localStorage.setItem('mf6c_liked', JSON.stringify([...liked])); await store.like(id);
+    } else if (b.dataset.a === 'del') {
+      if (prompt('Escribe la clave del grupo para borrar esta publicación:') !== CLAVE_BORRAR) return toast('Clave incorrecta. No se borró nada.');
+      await store.del(id); toast('Publicación borrada.');
+    } else if (b.dataset.a === 'com') {
+      const n = card.querySelector('.cn').value.trim(), t = card.querySelector('.ct').value.trim();
+      if (!n || !t) return toast('Escribe tu nombre y el comentario.');
+      localStorage.setItem('mf6c_nombre', n);
+      await store.comment(id, {n, t, ts:Date.now()}); toast('Comentario publicado.');
     }
+  } catch (err) { toast('Error: ' + (err.message || err)); }
+});
+store.sub(a => { posts = a; render(); });
 
-    // PUBLICAR
-    function publicarContenido() {
-        let titulo = document.getElementById('pub_titulo').value.trim();
-        let texto = document.getElementById('pub_texto').value.trim();
-        let imagenInput = document.getElementById('pub_imagen');
-
-        if (!titulo || !texto) {
-            alert('Por favor completa al menos el título y el texto.');
-            return;
-        }
-
-        let muro = document.getElementById('muro_conceptos');
-        let nuevaCard = document.createElement('div');
-        nuevaCard.className = 'theory-card';
-
-        let textoFormateado = texto.replace(/\n/g, '<br>');
-        let contenidoHTML = `
-            <button class="btn-eliminar" onclick="eliminarTarjeta(this)"><i class="fa-solid fa-trash"></i> Borrar</button>
-            <h4>${titulo}</h4>
-            <div style="font-size: 0.95rem; color: #334155; line-height: 1.6;">${textoFormateado}</div>
-        `;
-
-        if (imagenInput.files && imagenInput.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                contenidoHTML += `<img src="${e.target.result}" alt="Imagen del ejercicio" class="concept-img">`;
-                nuevaCard.innerHTML = contenidoHTML;
-                muro.prepend(nuevaCard);
-                if (window.MathJax) { MathJax.typeset(); }
-            };
-            reader.readAsDataURL(imagenInput.files[0]);
-        } else {
-            nuevaCard.innerHTML = contenidoHTML;
-            muro.prepend(nuevaCard);
-            if (window.MathJax) { MathJax.typeset(); }
-        }
-
-        document.getElementById('pub_titulo').value = '';
-        document.getElementById('pub_texto').value = '';
-        document.getElementById('pub_imagen').value = '';
-    }
-
-    function subirArchivoPestana(event) {
-        const files = event.target.files;
-        const lista = document.getElementById('lista_archivos');
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const fileCard = document.createElement('div');
-            fileCard.className = 'file-card';
-
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    fileCard.innerHTML = `
-                        <button class="btn-eliminar" onclick="eliminarTarjeta(this)"><i class="fa-solid fa-trash"></i> Borrar</button>
-                        <img src="${e.target.result}" alt="${file.name}">
-                        <div style="font-weight: 700; font-size: 0.85rem; text-align: center;">${file.name}</div>
-                    `;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                let iconClass = 'fa-file-lines';
-                if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) iconClass = 'fa-file-excel';
-                if (file.name.endsWith('.pdf')) iconClass = 'fa-file-pdf';
-                fileCard.innerHTML = `
-                    <button class="btn-eliminar" onclick="eliminarTarjeta(this)"><i class="fa-solid fa-trash"></i> Borrar</button>
-                    <div style="font-size: 2.5rem; text-align: center; color: var(--uae-blue); padding: 15px 0;"><i class="fa-solid ${iconClass}"></i></div>
-                    <div style="font-weight: 700; font-size: 0.85rem; text-align: center;">${file.name}</div>
-                `;
-            }
-            lista.prepend(fileCard);
-        }
-    }
-
-    function calcularInteresSimple() {
-        let C = parseFloat(document.getElementById('is_c').value) || 0;
-        let i = (parseFloat(document.getElementById('is_i').value) || 0) / 100;
-        let t = parseFloat(document.getElementById('is_t').value) || 0;
-        let I = C * i * t;
-        let M = C + I;
-        document.getElementById('res_is').innerHTML = `<div class="result-main">Interés (I): $${I.toFixed(2)} | Monto Final (M): $${M.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: I = ${C} × ${i} × ${t} = $${I.toFixed(2)} | M = ${C} + ${I.toFixed(2)} = $${M.toFixed(2)}</div>`;
-    }
-
-    function calcularDescuentoSimple() {
-        let M = parseFloat(document.getElementById('ds_m').value) || 0;
-        let d = (parseFloat(document.getElementById('ds_d').value) || 0) / 100;
-        let t = parseFloat(document.getElementById('ds_t').value) || 0;
-        let D = M * d * t;
-        let VT = M - D;
-        document.getElementById('res_ds').innerHTML = `<div class="result-main">Descuento (D): $${D.toFixed(2)} | Valor Transaccional (VT): $${VT.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: D = ${M} × ${d} × ${t} = $${D.toFixed(2)} | VT = ${M} - ${D.toFixed(2)} = $${VT.toFixed(2)}</div>`;
-    }
-
-    function calcularInteresCompuesto() {
-        let C = parseFloat(document.getElementById('ic_c').value) || 0;
-        let i = (parseFloat(document.getElementById('ic_i').value) || 0) / 100;
-        let n = parseFloat(document.getElementById('ic_n').value) || 0;
-        let M = C * Math.pow((1 + i), n);
-        let I = M - C;
-        document.getElementById('res_ic').innerHTML = `<div class="result-main">Monto Acumulado (M): $${M.toFixed(2)} | Interés (I): $${I.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: M = ${C} × (1 + ${i})^${n} = $${M.toFixed(2)}</div>`;
-    }
-
-    window.onload = function() {
-        calcularInteresSimple();
-        calcularDescuentoSimple();
-        calcularInteresCompuesto();
-        if (window.MathJax) { MathJax.typeset(); }
-    };
+/* ====== CALCULADORAS ====== */
+const calcs = [
+ {t:'Interés simple', f:[['C','Capital ($)',1000],['i','Tasa anual (%)',5],['t','Tiempo (años)',2]],
+  r:v=>{const I=v.C*v.i/100*v.t;return [`Interés $${money(I)} · Monto $${money(v.C+I)}`,`I = ${v.C} × ${v.i/100} × ${v.t} = ${money(I)}; M = ${v.C} + ${money(I)}`]}},
+ {t:'Descuento simple', f:[['M','Valor nominal ($)',2500],['d','Tasa de descuento (%)',8],['t','Tiempo (años)',1.5]],
+  r:v=>{const D=v.M*v.d/100*v.t;return [`Descuento $${money(D)} · Valor actual $${money(v.M-D)}`,`D = ${v.M} × ${v.d/100} × ${v.t} = ${money(D)}; VT = ${v.M} − ${money(D)}`]}},
+ {t:'Interés compuesto', f:[['C','Capital ($)',1000],['i','Tasa por período (%)',6],['n','Períodos (n)',3]],
+  r:v=>{const M=v.C*Math.pow(1+v.i/100,v.n);return [`Monto $${money(M)} · Interés $${money(M-v.C)}`,`M = ${v.C} × (1 + ${v.i/100})^${v.n} = ${money(M)}`]}}
+];
+$('calcs').innerHTML = calcs.map((c,k) => `<div class="calc" data-k="${k}"><h3>${c.t}</h3><div class="f">${c.f.map(([n,l,d])=>`<div><label>${l}</label><input type="number" step="any" data-n="${n}" value="${d}"></div>`).join('')}</div><div class="res"></div></div>`).join('');
+function calcular(box){
+  const c = calcs[box.dataset.k], v = {};
+  box.querySelectorAll('input').forEach(i => v[i.dataset.n] = parseFloat(i.value) || 0);
+  const [a,b] = c.r(v); box.querySelector('.res').innerHTML = `<b>${a}</b><small>${b}</small>`;
+}
+document.querySelectorAll('#calcs .calc').forEach(box => { calcular(box); box.addEventListener('input', () => calcular(box)); });
 </script>
-
 </body>
 </html>
