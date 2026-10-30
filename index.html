@@ -22,16 +22,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f1f5f9; color: #212529; line-height: 1.6; }
 
-        /* PORTADA CON ANIMACIÓN Y DEGRADADO */
         header {
             background: linear-gradient(-45deg, #001f3f, #002b5c, #004080, #0d5c75);
             background-size: 400% 400%;
             animation: gradientBG 12s ease infinite;
-            color: white; 
-            padding: 45px 20px 35px; 
-            text-align: center; 
-            position: relative;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            color: white; padding: 45px 20px 35px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         @keyframes gradientBG {
@@ -40,40 +35,20 @@
             100% { background-position: 0% 50%; }
         }
 
-        .header-content {
-            max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 25px; flex-wrap: wrap;
-        }
-
-        .header-logo-box {
-            width: 105px; height: 105px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            border: 4px solid var(--uae-gold); box-shadow: 0 0 20px rgba(255, 193, 7, 0.6);
-            animation: pulseGlow 3s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            from { box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); transform: scale(1); }
-            to { box-shadow: 0 0 25px rgba(255, 193, 7, 0.8); transform: scale(1.05); }
-        }
+        .header-content { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .header-logo-box { width: 105px; height: 105px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid var(--uae-gold); box-shadow: 0 0 20px rgba(255, 193, 7, 0.6); }
 
         .header-text h1 { font-size: 2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
         .header-text h2 { font-size: 1.15rem; font-weight: 600; color: #f8fafc; margin-bottom: 12px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
         
         .badges-container { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .badge-paralelo { background: var(--uae-gold); color: var(--uae-blue); padding: 7px 20px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .badge-grupo { background: #22c55e; color: white; padding: 7px 20px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .badge-paralelo { background: var(--uae-gold); color: var(--uae-blue); padding: 7px 20px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; }
+        .badge-grupo { background: #22c55e; color: white; padding: 7px 20px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; }
 
-        /* NAVEGACIÓN */
-        .nav-tabs {
-            display: flex; justify-content: center; background: var(--uae-blue); padding: 8px 10px; gap: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .nav-tabs button {
-            background: transparent; color: #d0d7de; border: none; padding: 12px 22px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-radius: 8px; transition: all 0.3s; display: flex; align-items: center; gap: 8px;
-        }
-
+        .nav-tabs { display: flex; justify-content: center; background: var(--uae-blue); padding: 8px 10px; gap: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .nav-tabs button { background: transparent; color: #d0d7de; border: none; padding: 12px 22px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border-radius: 8px; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
         .nav-tabs button:hover { background: rgba(255,255,255,0.15); color: white; }
-        .nav-tabs button.active { background: var(--uae-gold); color: var(--uae-blue); font-weight: 800; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .nav-tabs button.active { background: var(--uae-gold); color: var(--uae-blue); font-weight: 800; }
 
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
         .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
@@ -86,40 +61,23 @@
 
         /* INTEGRANTES */
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-        .member-card { 
-            background: #f8fafc; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 12px; 
-            padding: 20px; 
-            text-align: center; 
-            transition: all 0.3s ease;
-        }
-        .member-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-            border-color: var(--uae-gold);
-        }
-
-        .avatar-box { 
-            width: 110px; 
-            height: 110px; 
-            margin: 0 auto 15px; 
-            border-radius: 50%; 
-            border: 3px solid var(--uae-blue); 
-            background: #e2e8f0; 
-            overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-        .member-card:hover .avatar-box {
-            transform: scale(1.08);
-            border-color: var(--uae-gold);
-        }
+        .member-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center; transition: all 0.3s ease; }
+        .member-card:hover { transform: translateY(-8px); border-color: var(--uae-gold); }
+        .avatar-box { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; border: 3px solid var(--uae-blue); background: #e2e8f0; overflow: hidden; }
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
         .member-name { font-weight: 700; color: var(--uae-blue); font-size: 0.95rem; margin-top: 5px; }
 
-        /* TEORÍA Y CONCEPTOS */
-        .theory-card { background: #f1f5f9; border-left: 5px solid var(--uae-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        /* FORMULARIO INTERACTIVO PARA PUBLICAR */
+        .publicar-box { background: #f8fafc; border: 2px dashed var(--uae-blue); border-radius: 12px; padding: 20px; margin-bottom: 25px; }
+        .publicar-box h3 { color: var(--uae-blue); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .form-pub { display: flex; flex-direction: column; gap: 12px; }
+        .form-pub input, .form-pub textarea { padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; font-family: inherit; }
+        .form-pub textarea { resize: vertical; min-height: 80px; }
+        .pub-btn { background: var(--accent-green); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: 6px; }
+        .pub-btn:hover { background: #236327; }
+
+        /* TARJETAS DE TEORÍA Y PROCEDIMIENTOS */
+        .theory-card { background: #f1f5f9; border-left: 5px solid var(--uae-blue); padding: 20px; border-radius: 8px; margin-bottom: 20px; position: relative; }
         .theory-card h4 { color: var(--uae-blue); margin-bottom: 10px; font-size: 1.15rem; }
         .concept-img { width: 100%; max-height: 280px; object-fit: contain; border-radius: 8px; margin-top: 10px; border: 1px solid #cbd5e1; background: white; padding: 5px; }
 
@@ -134,11 +92,9 @@
         .result-main { font-size: 1.05rem; font-weight: 800; }
         .step-by-step { font-size: 0.9rem; color: #15803d; border-top: 1px dashed #bbf7d0; padding-top: 8px; margin-top: 8px; }
 
-        /* EVIDENCIAS Y GALERÍA */
         .file-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; margin-top: 20px; }
         .file-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 10px; }
         .file-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
-        .file-card .comment { font-size: 0.88rem; color: #475569; background: #f8fafc; padding: 8px; border-radius: 4px; border-left: 3px solid var(--uae-gold); }
     </style>
 </head>
 <body>
@@ -163,9 +119,9 @@
 <!-- NAVEGACIÓN -->
 <div class="nav-tabs">
     <button onclick="cambiarTab(event, 'tab-inicio')" class="active"><i class="fa-solid fa-house"></i> Inicio / Integrantes</button>
-    <button onclick="cambiarTab(event, 'tab-teoria')"><i class="fa-solid fa-book"></i> Teoría, Conceptos e Imágenes</button>
+    <button onclick="cambiarTab(event, 'tab-teoria')"><i class="fa-solid fa-book"></i> Teoría y Ejercicios (Muro)</button>
     <button onclick="cambiarTab(event, 'tab-calculadoras')"><i class="fa-solid fa-calculator"></i> Calculadoras Interactivas</button>
-    <button onclick="cambiarTab(event, 'tab-evidencias')"><i class="fa-solid fa-folder-open"></i> Excel, Fotos y Archivos</button>
+    <button onclick="cambiarTab(event, 'tab-evidencias')"><i class="fa-solid fa-folder-open"></i> Excel y Archivos</button>
 </div>
 
 <div class="container">
@@ -174,35 +130,25 @@
     <div id="tab-inicio" class="tab-content active">
         <div class="card">
             <div class="section-title"><i class="fa-solid fa-id-card"></i> Portada del Proyecto & Integrantes del Grupo</div>
-            <p style="margin-bottom: 15px; color: #475569;">
-                Plataforma web interactiva desarrollada para la resolución, simulación y validación paso a paso de problemas prácticos de Matemática Financiera.
-            </p>
+            <p style="margin-bottom: 15px; color: #475569;">Plataforma web interactiva desarrollada para la resolución, simulación y validación paso a paso de problemas prácticos de Matemática Financiera.</p>
             <div class="team-grid">
                 <div class="member-card">
-                    <div class="avatar-box">
-                        <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'" alt="Jacqueline Patricia Díaz Solís">
-                    </div>
+                    <div class="avatar-box"><img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'" alt="Jacqueline Díaz"></div>
                     <div class="member-name">Jacqueline Patricia Díaz Solís</div>
                     <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
                 </div>
                 <div class="member-card">
-                    <div class="avatar-box">
-                        <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'" alt="Ana Luisa Aguirre Guanapatín">
-                    </div>
+                    <div class="avatar-box"><img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'" alt="Ana Aguirre"></div>
                     <div class="member-name">Ana Luisa Aguirre Guanapatín</div>
                     <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
                 </div>
                 <div class="member-card">
-                    <div class="avatar-box">
-                        <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80'" alt="Eduardo Xavier Guzmán Ángel">
-                    </div>
+                    <div class="avatar-box"><img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80'" alt="Eduardo Guzmán"></div>
                     <div class="member-name">Eduardo Xavier Guzmán Ángel</div>
                     <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
                 </div>
                 <div class="member-card">
-                    <div class="avatar-box">
-                        <img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'" alt="Fiorella Drouet Costales">
-                    </div>
+                    <div class="avatar-box"><img src="foto4.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'" alt="Fiorella Drouet"></div>
                     <div class="member-name">Fiorella Drouet Costales</div>
                     <p style="font-size: 0.8rem; color: #64748b;">Computación 6C</p>
                 </div>
@@ -210,38 +156,46 @@
         </div>
     </div>
 
-    <!-- PESTAÑA 2: TEORÍA -->
+    <!-- PESTAÑA 2: TEORÍA Y MURO INTERACTIVO DE PUBLICACIÓN -->
     <div id="tab-teoria" class="tab-content">
         <div class="card">
-            <div class="section-title"><i class="fa-solid fa-graduation-cap"></i> Módulo de Conceptos Teóricos e Imágenes</div>
+            <div class="section-title"><i class="fa-solid fa-book-open"></i> Muro de Conceptos y Procedimientos del Grupo</div>
 
-            <div class="theory-card">
-                <h4>1. Interés Simple</h4>
-                <p>Es el rédito o rendimiento calculado exclusivamente sobre el capital inicial. El capital permanece fijo durante todo el período de la transacción financiera.</p>
-                <p><strong>Fórmulas:</strong> \( I = C \cdot i \cdot t \) &nbsp;|&nbsp; \( M = C + I \)</p>
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop&q=80" alt="Calculadora e Interés Simple" class="concept-img">
+            <!-- FORMULARIO INTERACTIVO PARA PUBLICAR NUEVOS CONCEPTOS O PROCEDIMIENTOS -->
+            <div class="publicar-box">
+                <h3><i class="fa-solid fa-pen-to-square"></i> Publicar nuevo concepto o procedimiento de ejercicio</h3>
+                <div class="form-pub">
+                    <input type="text" id="pub_titulo" placeholder="Título (Ej: 4. Ejercicio Práctico de Interés Compuesto)">
+                    <textarea id="pub_texto" placeholder="Escribe aquí la explicación, fórmula o el procedimiento paso a paso..."></textarea>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                        <label style="font-size: 0.88rem; font-weight: 600; color: #475569;"><i class="fa-solid fa-image"></i> Adjuntar imagen del ejercicio:</label>
+                        <input type="file" id="pub_imagen" accept="image/*" style="font-size: 0.85rem;">
+                    </div>
+                    <button class="pub-btn" onclick="publicarContenido()"><i class="fa-solid fa-paper-plane"></i> Publicar en la Web</button>
+                </div>
             </div>
 
-            <div class="theory-card">
-                <h4>2. Interés Compuesto</h4>
-                <p>Proceso mediante el cual los intereses devengados en cada período se suman al capital inicial (capitalización), generando nuevos intereses en los períodos siguientes.</p>
-                <p><strong>Fórmulas:</strong> \( M = C \cdot (1 + i)^n \) &nbsp;|&nbsp; \( I = M - C \)</p>
-                <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80" alt="Crecimiento de Inversiones" class="concept-img">
-            </div>
+            <!-- CONTENEDOR DONDE APARECEN LOS CONCEPTOS (INCLUYE LOS FIJOS Y LOS NUEVOS) -->
+            <div id="muro_conceptos">
+                <div class="theory-card">
+                    <h4>1. Interés Simple</h4>
+                    <p>Es el rédito o rendimiento calculado exclusivamente sobre el capital inicial. El capital permanece fijo durante todo el período de la transacción financiera.</p>
+                    <p><strong>Fórmulas:</strong> \( I = C \cdot i \cdot t \) &nbsp;|&nbsp; \( M = C + I \)</p>
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop&q=80" alt="Interés Simple" class="concept-img">
+                </div>
 
-            <div class="theory-card" style="border-left-color: #16a34a;">
-                <h4>3. Conversión de Tasas y Tiempos Homogéneos</h4>
-                <p>Es el proceso matemático mediante el cual una tasa de interés expresada en porcentaje (%) se transforma a su equivalente en valor decimal, y el plazo de la operación se ajusta para que se encuentre expresado exactamente en la <strong>misma unidad de medida temporal</strong> que la tasa (por ejemplo, convertir meses a años cuando la tasa es anual).</p>
-                <p><strong>Fórmulas base:</strong></p>
-                <ul style="margin-left: 20px; margin-top: 5px; margin-bottom: 10px;">
-                    <li>\( i_{\text{decimal}} = \frac{i_{\text{\%}}}{100} \)</li>
-                    <li>\( n_{\text{años}} = \frac{\text{meses}}{12} \)</li>
-                </ul>
-                <p><em>Ejemplo aplicado:</em> Si se tiene una tasa del \( 7,3\% \) anual y un plazo de \( 6 \) meses:</p>
-                <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li>\( i = \frac{7,3}{100} = 0,073 \)</li>
-                    <li>\( t = \frac{6}{12} = 0,5 \text{ años} \)</li>
-                </ul>
+                <div class="theory-card">
+                    <h4>2. Interés Compuesto</h4>
+                    <p>Proceso mediante el cual los intereses devengados en cada período se suman al capital inicial (capitalización), generando nuevos intereses en los períodos siguientes.</p>
+                    <p><strong>Fórmulas:</strong> \( M = C \cdot (1 + i)^n \) &nbsp;|&nbsp; \( I = M - C \)</p>
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80" alt="Interés Compuesto" class="concept-img">
+                </div>
+
+                <div class="theory-card" style="border-left-color: #16a34a;">
+                    <h4>3. Conversión de Tasas y Tiempos Homogéneos</h4>
+                    <p>Proceso matemático mediante el cual una tasa de interés expresada en porcentaje (%) se transforma a su equivalente en valor decimal, y el plazo se ajusta a la misma unidad temporal.</p>
+                    <p><em>Ejemplo aplicado:</em> Tasa del \( 7,3\% \) anual y plazo de \( 6 \) meses (\( t = 6/12 = 0,5 \) años).</p>
+                </div>
             </div>
         </div>
     </div>
@@ -277,39 +231,17 @@
             </div>
             <div class="result-box" id="res_ic"></div>
         </div>
-
-        <div class="calc-box">
-            <div class="section-title"><i class="fa-solid fa-arrows-rotate"></i> 4. Tasa Nominal y Tasa Efectiva</div>
-            <div class="form-grid">
-                <div class="form-group"><label>Tasa Nominal Anual % (j):</label><input type="number" id="te_j" value="12" step="any" oninput="calcularTasaEfectiva()"></div>
-                <div class="form-group">
-                    <label>Frecuencia de Capitalización (m):</label>
-                    <select id="te_m" onchange="calcularTasaEfectiva()">
-                        <option value="12">Mensual (m = 12)</option>
-                        <option value="4">Trimestral (m = 4)</option>
-                        <option value="2">Semestral (m = 2)</option>
-                        <option value="365">Diaria (m = 365)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="result-box" id="res_te"></div>
-        </div>
     </div>
 
-    <!-- PESTAÑA 4: EVIDENCIAS Y GALERÍA DEL GRUPO -->
+    <!-- PESTAÑA 4: EVIDENCIAS Y EXCEL -->
     <div id="tab-evidencias" class="tab-content">
         <div class="card">
-            <div class="section-title"><i class="fa-solid fa-folder-open"></i> Archivos, Excel y Evidencias del Grupo 10</div>
-            
-            <p style="margin-bottom: 20px; color: #475569;">
-                Archivos oficiales y actividades registradas del equipo para la materia de Matemática Financiera.
-            </p>
-
+            <div class="section-title"><i class="fa-solid fa-folder-open"></i> Archivos y Excel del Grupo 10</div>
             <div class="file-list">
                 <div class="file-card">
                     <div style="font-size: 2.5rem; text-align: center; color: var(--uae-blue); padding: 20px 0;"><i class="fa-solid fa-file-excel"></i></div>
                     <div style="font-weight: 700; font-size: 0.85rem; text-align: center;">Ejemplo_Conversion_Tasas.xlsx</div>
-                    <div class="comment"><i class="fa-solid fa-comment"></i> Resolución de conversión de tasas con 7,3% anual y plazo de 6 meses.</div>
+                    <div style="font-size: 0.85rem; color: #475569; background: #f8fafc; padding: 8px; border-radius: 4px; border-left: 3px solid var(--uae-gold);">Resolución de conversión de tasas con 7,3% anual y plazo de 6 meses.</div>
                 </div>
             </div>
         </div>
@@ -321,12 +253,49 @@
     function cambiarTab(evt, tabId) {
         let contents = document.getElementsByClassName("tab-content");
         for (let c of contents) { c.classList.remove("active"); }
-
         let buttons = document.getElementsByClassName("nav-tabs")[0].getElementsByTagName("button");
         for (let b of buttons) { b.classList.remove("active"); }
-
         document.getElementById(tabId).classList.add("active");
         evt.currentTarget.classList.add("active");
+    }
+
+    // SCRIPT PARA PUBLICAR CONCEPTOS Y PROCEDIMIENTOS INTERACTIVAMENTE
+    function publicarContenido() {
+        let titulo = document.getElementById('pub_titulo').value.trim();
+        let texto = document.getElementById('pub_texto').value.trim();
+        let imagenInput = document.getElementById('pub_imagen');
+
+        if (!titulo || !texto) {
+            alert('Por favor completa al menos el título y el texto del concepto o procedimiento.');
+            return;
+        }
+
+        let muro = document.getElementById('muro_conceptos');
+        let nuevaCard = document.createElement('div');
+        nuevaCard.className = 'theory-card';
+
+        let contenidoHTML = `<h4>${titulo}</h4><p>${texto.replace(/\n/g, '<br>')}</p>`;
+
+        if (imagenInput.files && imagenInput.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                contenidoHTML += `<img src="${e.target.result}" alt="Imagen del ejercicio" class="concept-img">`;
+                nuevaCard.innerHTML = contenidoHTML;
+                muro.prepend(nuevaCard); // Lo agrega arriba del todo
+                if (window.MathJax) { MathJax.typeset(); }
+            };
+            reader.readAsDataURL(imagenInput.files[0]);
+        } else {
+            nuevaCard.innerHTML = contenidoHTML;
+            muro.prepend(nuevaCard);
+            if (window.MathJax) { MathJax.typeset(); }
+        }
+
+        // Limpiar formulario
+        document.getElementById('pub_titulo').value = '';
+        document.getElementById('pub_texto').value = '';
+        document.getElementById('pub_imagen').value = '';
+        alert('¡Publicado con éxito en el muro interactivo!');
     }
 
     function calcularInteresSimple() {
@@ -335,9 +304,7 @@
         let t = parseFloat(document.getElementById('is_t').value) || 0;
         let I = C * i * t;
         let M = C + I;
-        document.getElementById('res_is').innerHTML = 
-            `<div class="result-main">Interés (I): $${I.toFixed(2)} | Monto Final (M): $${M.toFixed(2)}</div>` +
-            `<div class="step-by-step">📐 Paso a paso: I = ${C} × ${i} × ${t} = $${I.toFixed(2)} | M = ${C} + ${I.toFixed(2)} = $${M.toFixed(2)}</div>`;
+        document.getElementById('res_is').innerHTML = `<div class="result-main">Interés (I): $${I.toFixed(2)} | Monto Final (M): $${M.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: I = ${C} × ${i} × ${t} = $${I.toFixed(2)} | M = ${C} + ${I.toFixed(2)} = $${M.toFixed(2)}</div>`;
     }
 
     function calcularDescuentoSimple() {
@@ -346,9 +313,7 @@
         let t = parseFloat(document.getElementById('ds_t').value) || 0;
         let D = M * d * t;
         let VT = M - D;
-        document.getElementById('res_ds').innerHTML = 
-            `<div class="result-main">Descuento (D): $${D.toFixed(2)} | Valor Transaccional (VT): $${VT.toFixed(2)}</div>` +
-            `<div class="step-by-step">📐 Paso a paso: D = ${M} × ${d} × ${t} = $${D.toFixed(2)} | VT = ${M} - ${D.toFixed(2)} = $${VT.toFixed(2)}</div>`;
+        document.getElementById('res_ds').innerHTML = `<div class="result-main">Descuento (D): $${D.toFixed(2)} | Valor Transaccional (VT): $${VT.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: D = ${M} × ${d} × ${t} = $${D.toFixed(2)} | VT = ${M} - ${D.toFixed(2)} = $${VT.toFixed(2)}</div>`;
     }
 
     function calcularInteresCompuesto() {
@@ -357,26 +322,13 @@
         let n = parseFloat(document.getElementById('ic_n').value) || 0;
         let M = C * Math.pow((1 + i), n);
         let I = M - C;
-        document.getElementById('res_ic').innerHTML = 
-            `<div class="result-main">Monto Acumulado (M): $${M.toFixed(2)} | Interés (I): $${I.toFixed(2)}</div>` +
-            `<div class="step-by-step">📐 Paso a paso: M = ${C} × (1 + ${i})^${n} = $${M.toFixed(2)}</div>`;
-    }
-
-    function calcularTasaEfectiva() {
-        let j = (parseFloat(document.getElementById('te_j').value) || 0) / 100;
-        let m = parseFloat(document.getElementById('te_m').value) || 1;
-        let ie = Math.pow((1 + (j / m)), m) - 1;
-        let ie_porcentaje = ie * 100;
-        document.getElementById('res_te').innerHTML = 
-            `<div class="result-main">Tasa Efectiva Anual (i_e): ${ie_porcentaje.toFixed(4)}%</div>` +
-            `<div class="step-by-step">📐 Paso a paso: i_e = (1 + ${j}/${m})^${m} - 1 = ${ie_porcentaje.toFixed(4)}%</div>`;
+        document.getElementById('res_ic').innerHTML = `<div class="result-main">Monto Acumulado (M): $${M.toFixed(2)} | Interés (I): $${I.toFixed(2)}</div><div class="step-by-step">📐 Paso a paso: M = ${C} × (1 + ${i})^${n} = $${M.toFixed(2)}</div>`;
     }
 
     window.onload = function() {
         calcularInteresSimple();
         calcularDescuentoSimple();
         calcularInteresCompuesto();
-        calcularTasaEfectiva();
         if (window.MathJax) { MathJax.typeset(); }
     };
 </script>
