@@ -122,28 +122,14 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
   <h2>Muro del grupo</h2>
   <p class="sub">Publica ejercicios, actividades y procedimientos. Todos pueden comentar y dar “Me sirve”.</p>
   <div id="aviso"></div>
-  <div class="panel">
-   <h3 style="color:var(--verde);margin-bottom:12px">Nueva publicación</h3>
-   <div class="f">
-    <div class="fr">
-     <div><label for="p_autor">Publica</label><select id="p_autor"></select></div>
-     <div><label for="p_tipo">Tipo</label><select id="p_tipo"><option>Ejercicio resuelto</option><option>Actividad</option><option>Archivo Excel</option><option>Concepto</option></select></div>
-    </div>
-    <div><label for="p_tit">Título</label><input id="p_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
-    <div><label for="p_txt">Procedimiento o explicación</label><textarea id="p_txt" placeholder="Escribe el paso a paso del ejercicio…"></textarea></div>
-    <div><label for="p_arch">Fotos (hasta 4) o un archivo Excel, PDF o Word (máx. 700 KB)</label><input type="file" id="p_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"><small id="p_info" style="color:var(--gris)"></small></div>
-    <div><label for="p_link">Enlace de Drive u OneDrive (opcional, para Excel grandes)</label><input id="p_link" type="url" placeholder="https://drive.google.com/…"></div>
-    <div id="p_err" class="aviso" style="display:none;background:#fde8e8;border-color:#d33" role="alert"></div>
-    <button class="btn" id="p_btn">Publicar en el muro</button>
-   </div>
-  </div>
+  <div class="panel" id="form_muro"></div>
   <div id="lista"></div>
  </section>
 
  <section class="tab" id="archivos">
   <h2>Archivos y Excel</h2>
-  <p class="sub">Todo lo que el grupo adjunta en el muro aparece aquí para descargarlo.</p>
-  <div class="panel"><button class="btn xl" id="irExcel">Subir un archivo Excel</button></div>
+  <p class="sub">Sube aquí tus Excel. Todos pueden descargarlos, y con la clave del grupo se pueden borrar.</p>
+  <div class="panel" id="form_arch"></div>
   <div class="grid" id="lista_arch"></div>
  </section>
 
@@ -171,6 +157,7 @@ const FIREBASE_CONFIG = null;
 const CLAVE_BORRAR = "grupo10";
 const MIEMBROS = ["Jacqueline Patricia Díaz Solís","Ana Luisa Aguirre Guanapatín","Eduardo Xavier Guzmán Ángel","Fiorella Drouet Costales"];
 const COLORES_TIPO = {'Ejercicio resuelto':'#14624b','Actividad':'#1f7aa6','Archivo Excel':'#1d6f42','Concepto':'#b86e00'};
+const MAX_KB = 700;
 
 /* ====== UTILIDADES ====== */
 const $ = id => document.getElementById(id);
@@ -178,7 +165,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const ini = n => n.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
 const fecha = t => new Date(t).toLocaleString('es-EC',{dateStyle:'medium',timeStyle:'short'});
 const money = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',3500)}
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',4000)}
 
 /* ====== PESTAÑAS ====== */
 function irTab(id){
@@ -187,12 +174,29 @@ function irTab(id){
   window.scrollTo({top: document.querySelector('nav').offsetTop, behavior:'smooth'});
 }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => irTab(b.dataset.t));
-$('irExcel').onclick = () => { irTab('muro'); $('p_tipo').value = 'Archivo Excel'; setTimeout(() => $('p_arch').focus(), 400); };
 
 /* ====== INTEGRANTES ====== */
 const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0'];
 $('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
-$('p_autor').innerHTML = MIEMBROS.map(n => `<option>${esc(n)}</option>`).join('');
+
+/* ====== FORMULARIOS (muro "p" y archivos "x") ====== */
+function formHTML(p, muro){
+  return `<h3 style="color:var(--verde);margin-bottom:12px">${muro ? 'Nueva publicación' : 'Subir un archivo Excel'}</h3>
+  <div class="f">
+   <div class="fr">
+    <div><label for="${p}_autor">Publica</label><select id="${p}_autor">${MIEMBROS.map(n => `<option>${esc(n)}</option>`).join('')}</select></div>
+    ${muro ? '<div><label for="p_tipo">Tipo</label><select id="p_tipo"><option>Ejercicio resuelto</option><option>Actividad</option><option>Archivo Excel</option><option>Concepto</option></select></div>' : ''}
+   </div>
+   <div><label for="${p}_tit">Título</label><input id="${p}_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
+   <div><label for="${p}_txt">${muro ? 'Procedimiento o explicación' : 'Descripción (opcional)'}</label><textarea id="${p}_txt" placeholder="${muro ? 'Escribe el paso a paso del ejercicio…' : 'Qué contiene este archivo…'}"></textarea></div>
+   <div><label for="${p}_arch">${muro ? 'Fotos (hasta 4) o un archivo Excel, PDF o Word' : 'Archivo Excel (.xlsx, .xls, .csv), PDF, Word o fotos'} · máx. ${MAX_KB} KB</label><input type="file" id="${p}_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"><small id="${p}_info" style="color:var(--gris)"></small></div>
+   <div><label for="${p}_link">Enlace de Drive u OneDrive (opcional, para archivos grandes)</label><input id="${p}_link" type="url" placeholder="https://drive.google.com/…"></div>
+   <div id="${p}_err" class="aviso" style="display:none;background:#fde8e8;border-color:#d33" role="alert"></div>
+   <button type="button" class="btn ${muro ? '' : 'xl'}" id="${p}_btn">${muro ? 'Publicar en el muro' : 'Subir archivo'}</button>
+  </div>`;
+}
+$('form_muro').innerHTML = formHTML('p', true);
+$('form_arch').innerHTML = formHTML('x', false);
 
 /* ====== ALMACENAMIENTO (Firebase o local) ====== */
 let db = null;
@@ -215,7 +219,7 @@ $('aviso').innerHTML = db
   ? '<div class="aviso ok">Publicaciones en línea: todo el grupo y la profesora ven lo mismo y nada se borra al cerrar la página.</div>'
   : '<div class="aviso"><b>Atención, modo local:</b> lo que publiques solo se ve en este navegador y en este equipo. Tus compañeras y la profesora NO lo verán hasta que se conecte Firebase.</div>';
 
-/* ====== ARCHIVOS E IMÁGENES ====== */
+/* ====== ARCHIVOS, IMÁGENES Y DESCARGAS ====== */
 function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
 async function comprimir(file,max=900,q=.72){
   const src = await leer(file);
@@ -231,44 +235,48 @@ function descargar(a){
   const bin = atob(a.data.split(',')[1]), u = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
   const ext = (a.nombre.split('.').pop() || '').toLowerCase();
-  const tipos = {xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', xls:'application/vnd.ms-excel', csv:'text/csv', pdf:'application/pdf', docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+  const tipos = {xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', xls:'application/vnd.ms-excel', csv:'text/csv', pdf:'application/pdf', jpg:'image/jpeg', docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
   const url = URL.createObjectURL(new Blob([u], {type: tipos[ext] || 'application/octet-stream'}));
   const l = document.createElement('a'); l.href = url; l.download = a.nombre; document.body.appendChild(l); l.click(); l.remove();
   setTimeout(() => URL.revokeObjectURL(url), 4000);
   toast('Descargando ' + a.nombre);
 }
 function enlaceExterno(p){ return p.link && /^https?:\/\//i.test(p.link) ? `<a class="arch" href="${esc(p.link)}" target="_blank" rel="noopener"><b class="ext">LINK</b>Abrir enlace</a>` : ''; }
-$('p_arch').onchange = () => { $('p_info').innerHTML = [...$('p_arch').files].map(f => esc(f.name)+' · '+Math.round(f.size/1024)+' KB'+(!f.type.startsWith('image/') && f.size > 700*1024 ? ' <b style="color:#c22">(demasiado grande)</b>' : '')).join('<br>'); };
 
-/* ====== PUBLICAR ====== */
-$('p_btn').onclick = async () => {
-  const tit = $('p_tit').value.trim(), txt = $('p_txt').value.trim();
-  if (!tit || !txt) return toast('Escribe al menos el título y el procedimiento.');
-  const btn = $('p_btn'); btn.disabled = true; btn.textContent = 'Publicando…'; $('p_err').style.display = 'none';
+/* ====== PUBLICAR (sirve para el muro y para la pestaña Archivos) ====== */
+function info(p){
+  $(p+'_info').innerHTML = [...$(p+'_arch').files].map(f => esc(f.name)+' · '+Math.round(f.size/1024)+' KB'+(!f.type.startsWith('image/') && f.size > MAX_KB*1024 ? ' <b style="color:#c22">(demasiado grande)</b>' : '')).join('<br>');
+}
+async function publicar(p){
+  const tit = $(p+'_tit').value.trim(), txt = $(p+'_txt').value.trim(), link = $(p+'_link').value.trim(), files = [...$(p+'_arch').files];
+  const aviso = m => { $(p+'_err').textContent = m; $(p+'_err').style.display = 'block'; $(p+'_err').scrollIntoView({behavior:'smooth',block:'center'}); toast(m); };
+  $(p+'_err').style.display = 'none';
+  if (!tit) return aviso('Escribe un título.');
+  if (!txt && !files.length && !link) return aviso('Agrega una descripción, un archivo o un enlace.');
+  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Subiendo…';
   try {
     const imgs = []; let archivo = null;
-    for (const f of $('p_arch').files) {
+    for (const f of files) {
       if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
       else if (!archivo) {
-        if (f.size > 700*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es 700 KB. Súbelo a Google Drive u OneDrive y pega el enlace en el campo de enlace.');
+        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB. Súbelo a Google Drive u OneDrive y pega el enlace en el campo de enlace.');
         archivo = {nombre:f.name, data:await leer(f)};
       }
     }
-    const post = {autor:$('p_autor').value, tipo:$('p_tipo').value, titulo:tit, texto:txt, imgs, archivo, link:$('p_link').value.trim(), likes:0, coms:[], ts:Date.now()};
-    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado. Sube menos fotos por publicación.');
+    const post = {autor:$(p+'_autor').value, tipo: p === 'p' ? $('p_tipo').value : 'Archivo Excel', titulo:tit, texto:txt, imgs, archivo, link, likes:0, coms:[], ts:Date.now()};
+    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado. Sube menos por publicación.');
     await store.add(post);
-    $('p_tit').value = ''; $('p_txt').value = ''; $('p_arch').value = ''; $('p_link').value = ''; $('p_info').textContent = ''; $('p_err').style.display = 'none';
-    toast('Publicado en el muro.'); $('lista').scrollIntoView({behavior:'smooth'});
+    ['tit','txt','arch','link'].forEach(k => $(p+'_'+k).value = ''); $(p+'_info').textContent = '';
+    toast('Listo, ya está publicado.');
+    (p === 'p' ? $('lista') : $('lista_arch')).scrollIntoView({behavior:'smooth'});
   } catch (e) {
-    let m = 'No se pudo publicar: ' + (e.message || e);
-    if (e && e.name === 'QuotaExceededError') m = 'No se pudo publicar: este navegador se quedó sin espacio. Conecta Firebase o sube menos fotos.';
-    $('p_err').textContent = m; $('p_err').style.display = 'block'; $('p_err').scrollIntoView({behavior:'smooth',block:'center'});
-    toast('No se pudo publicar. Lee el aviso rojo.');
+    aviso(e && e.name === 'QuotaExceededError' ? 'Este navegador se quedó sin espacio. Conecta Firebase o sube menos fotos.' : 'No se pudo subir: ' + (e.message || e));
   }
-  btn.disabled = false; btn.textContent = 'Publicar en el muro';
-};
+  btn.disabled = false; btn.textContent = etiqueta;
+}
+['p','x'].forEach(p => { $(p+'_btn').onclick = () => publicar(p); $(p+'_arch').onchange = () => info(p); });
 
-/* ====== MURO ====== */
+/* ====== MURO Y ARCHIVOS ====== */
 const liked = new Set(JSON.parse(localStorage.getItem('mf6c_liked') || '[]'));
 let posts = [];
 function render(){
@@ -287,25 +295,28 @@ function render(){
 
   const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
-   <div class="calc"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
-   ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
-   ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}</div>`).join('')
-   : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Usa el botón verde para subir el primer Excel.</div>';
+   <div class="calc" data-id="${esc(p.id)}"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
+   ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div><div>${p.imgs.map((s,i)=>`<button type="button" class="arch" data-dli="${esc(p.id)}:${i}">Descargar foto ${i+1}</button>`).join('')}</div>` : ''}
+   ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
+   <div class="acts"><button class="btn s" data-a="del">Borrar</button></div></div>`).join('')
+   : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Usa el formulario de arriba para subir el primer Excel.</div>';
 }
 document.addEventListener('click', async e => {
   if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
   if (e.target.closest('#lb')) { $('lb').style.display = 'none'; return; }
   const d = e.target.closest('[data-dl]');
   if (d) { const p = posts.find(x => x.id === d.dataset.dl); if (p && p.archivo) { try { descargar(p.archivo); } catch (err) { toast('No se pudo descargar: ' + err.message); } } return; }
+  const di = e.target.closest('[data-dli]');
+  if (di) { const [pid, ix] = di.dataset.dli.split(':'); const p = posts.find(x => x.id === pid); if (p && p.imgs && p.imgs[ix]) descargar({nombre:'foto-'+(+ix+1)+'.jpg', data:p.imgs[ix]}); return; }
   const b = e.target.closest('[data-a]'); if (!b) return;
-  const card = b.closest('.post'), id = card.dataset.id;
+  const card = b.closest('[data-id]'), id = card.dataset.id;
   try {
     if (b.dataset.a === 'like') {
       if (liked.has(id)) return toast('Ya marcaste esta publicación.');
       liked.add(id); localStorage.setItem('mf6c_liked', JSON.stringify([...liked])); await store.like(id);
     } else if (b.dataset.a === 'del') {
-      if (prompt('Escribe la clave del grupo para borrar esta publicación:') !== CLAVE_BORRAR) return toast('Clave incorrecta. No se borró nada.');
-      await store.del(id); toast('Publicación borrada.');
+      if (prompt('Escribe la clave del grupo para borrar esto:') !== CLAVE_BORRAR) return toast('Clave incorrecta. No se borró nada.');
+      await store.del(id); toast('Borrado.');
     } else if (b.dataset.a === 'com') {
       const n = card.querySelector('.cn').value.trim(), t = card.querySelector('.ct').value.trim();
       if (!n || !t) return toast('Escribe tu nombre y el comentario.');
