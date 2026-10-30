@@ -62,6 +62,7 @@ label{font-weight:700;font-size:.88rem;color:var(--verde)}
 .imgs img{width:100%;height:170px;object-fit:cover;border-radius:8px;border:1px solid var(--linea);cursor:zoom-in}
 .arch{display:inline-flex;gap:10px;align-items:center;margin:12px 8px 0 0;padding:8px 14px 8px 8px;background:var(--fondo);border:1px solid var(--linea);border-radius:8px;color:var(--verde);font-weight:700;text-decoration:none;font-size:.9rem}
 .arch:hover{background:#e3f6ea}
+button.arch{cursor:pointer;font-family:inherit}
 .ext{background:#1d6f42;color:#fff;border-radius:6px;padding:3px 9px;font-size:.78rem}.ext.o{background:var(--gris)}
 .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .coms{margin-top:14px;border-top:1px solid var(--linea);padding-top:12px}
@@ -220,10 +221,21 @@ async function comprimir(file,max=900,q=.72){
   const src = await leer(file);
   return new Promise((ok,no)=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height));const c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q))};i.src=src});
 }
-function enlaceArchivo(a){
+function enlaceArchivo(a, id){
   const ext = (a.nombre.split('.').pop() || '').toUpperCase();
   const excel = ['XLSX','XLS','CSV'].includes(ext);
-  return `<a class="arch" href="${a.data}" download="${esc(a.nombre)}"><b class="ext ${excel?'':'o'}">${esc(ext)}</b>Descargar ${esc(a.nombre)}</a>`;
+  const kb = Math.round((a.data.length - a.data.indexOf(',') - 1) * 0.75 / 1024);
+  return `<button type="button" class="arch" data-dl="${esc(id)}"><b class="ext ${excel?'':'o'}">${esc(ext)}</b>Descargar ${esc(a.nombre)} · ${kb} KB</button>`;
+}
+function descargar(a){
+  const bin = atob(a.data.split(',')[1]), u = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+  const ext = (a.nombre.split('.').pop() || '').toLowerCase();
+  const tipos = {xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', xls:'application/vnd.ms-excel', csv:'text/csv', pdf:'application/pdf', docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+  const url = URL.createObjectURL(new Blob([u], {type: tipos[ext] || 'application/octet-stream'}));
+  const l = document.createElement('a'); l.href = url; l.download = a.nombre; document.body.appendChild(l); l.click(); l.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  toast('Descargando ' + a.nombre);
 }
 function enlaceExterno(p){ return p.link && /^https?:\/\//i.test(p.link) ? `<a class="arch" href="${esc(p.link)}" target="_blank" rel="noopener"><b class="ext">LINK</b>Abrir enlace</a>` : ''; }
 $('p_arch').onchange = () => { $('p_info').innerHTML = [...$('p_arch').files].map(f => esc(f.name)+' · '+Math.round(f.size/1024)+' KB'+(!f.type.startsWith('image/') && f.size > 700*1024 ? ' <b style="color:#c22">(demasiado grande)</b>' : '')).join('<br>'); };
@@ -265,7 +277,7 @@ function render(){
    <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="logo.jpg" alt="UAE"></div>
    <h3>${esc(p.titulo)}</h3><div class="tx">${esc(p.texto)}</div>
    ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto del procedimiento" loading="lazy">`).join('')}</div>` : ''}
-   ${p.archivo ? enlaceArchivo(p.archivo) : ''}${enlaceExterno(p)}
+   ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
    <div class="acts"><button class="btn s" data-a="like">${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del">Borrar</button></div>
    <div class="coms">
     ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
@@ -277,12 +289,14 @@ function render(){
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
    <div class="calc"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
    ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
-   ${p.archivo ? enlaceArchivo(p.archivo) : ''}${enlaceExterno(p)}</div>`).join('')
+   ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}</div>`).join('')
    : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Usa el botón verde para subir el primer Excel.</div>';
 }
 document.addEventListener('click', async e => {
   if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
   if (e.target.closest('#lb')) { $('lb').style.display = 'none'; return; }
+  const d = e.target.closest('[data-dl]');
+  if (d) { const p = posts.find(x => x.id === d.dataset.dl); if (p && p.archivo) { try { descargar(p.archivo); } catch (err) { toast('No se pudo descargar: ' + err.message); } } return; }
   const b = e.target.closest('[data-a]'); if (!b) return;
   const card = b.closest('.post'), id = card.dataset.id;
   try {
