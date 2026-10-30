@@ -7,6 +7,7 @@
 <link rel="icon" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root{--verde:#0b3b2e;--verde2:#14624b;--hoja:#bfe35a;--oro:#f2b705;--fondo:#eef4ef;--tinta:#16251f;--gris:#5d6e66;--linea:#d3e0d8}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -45,7 +46,7 @@ h2{font-size:1.9rem;color:var(--verde);margin-bottom:6px}
 input,select,textarea{width:100%;padding:11px 13px;border:1px solid #bccdc3;border-radius:8px;font:inherit;background:#fff}
 textarea{min-height:100px;resize:vertical}
 label{font-weight:700;font-size:.88rem;color:var(--verde)}
-.btn{border:0;background:var(--verde2);color:#fff;padding:11px 22px;border-radius:8px;font:700 .95rem 'Source Sans 3';cursor:pointer;justify-self:start}
+.btn{border:0;background:var(--verde2);color:#fff;padding:11px 22px;border-radius:8px;font:700 .95rem 'Source Sans 3';cursor:pointer;justify-self:start;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn:hover{background:var(--verde)}.btn:disabled{opacity:.6;cursor:wait}
 .btn.xl{background:#1d6f42;font-size:1.05rem;padding:14px 26px}
 .btn.s{background:none;color:var(--verde2);border:1px solid var(--linea);padding:6px 12px;font-size:.85rem}
@@ -120,15 +121,27 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 
  <section class="tab" id="muro">
   <h2>Muro del grupo</h2>
-  <p class="sub">Publica ejercicios, actividades y procedimientos. Todos pueden comentar y dar “Me sirve”.</p>
+  <p class="sub">Publica ejercicios, actividades y procedimientos del grupo.</p>
   <div id="aviso"></div>
   <div class="panel" id="form_muro"></div>
   <div id="lista"></div>
  </section>
 
  <section class="tab" id="archivos">
-  <h2>Archivos y Excel</h2>
-  <p class="sub">Sube aquí tus Excel. Todos pueden descargarlos, y con la clave del grupo se pueden borrar.</p>
+  <h2>Archivos, Excel y Evidencias Semanales</h2>
+  <p class="sub">Carpeta compartida y repositorio oficial del equipo en la nube.</p>
+  
+  <div class="panel" style="text-align:center; padding:35px 20px; background:#f0fdf4; border:2px dashed #14624b; margin-bottom:25px;">
+   <i class="fa-brands fa-google-drive" style="font-size:3.5rem; color:#14624b; margin-bottom:12px;"></i>
+   <h3 style="color:var(--verde); margin-bottom:8px;">Carpeta Oficial del Grupo 10 en Google Drive</h3>
+   <p style="color:var(--gris); margin-bottom:20px; font-size:0.95rem;">
+    Para asegurar que tus compañeras y la profesora puedan ver e interaccionar con los archivos de Excel, imágenes y actividades semanalmente de forma permanente, los documentos se gestionan directamente desde la nube.
+   </p>
+   <a href="https://drive.google.com/drive/folders/1mugXCMzJgQsPzhpywAQQSjfs-HigaZMl?usp=drive_link" target="_blank" rel="noopener" class="btn xl" style="background:#14624b; color:#fff;">
+    <i class="fa-solid fa-folder-open"></i> Abrir Carpeta Compartida en Google Drive
+   </a>
+  </div>
+
   <div class="panel" id="form_arch"></div>
   <div class="grid" id="lista_arch"></div>
  </section>
@@ -151,9 +164,7 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
 /* ====== CONFIGURACIÓN ====== */
-// Pega aquí tu firebaseConfig. Mientras sea null, las publicaciones se guardan solo en este navegador.
 const FIREBASE_CONFIG = null;
-// Clave que se pide para BORRAR publicaciones (cámbiala).
 const CLAVE_BORRAR = "grupo10";
 const MIEMBROS = ["Jacqueline Patricia Díaz Solís","Ana Luisa Aguirre Guanapatín","Eduardo Xavier Guzmán Ángel","Fiorella Drouet Costales"];
 const COLORES_TIPO = {'Ejercicio resuelto':'#14624b','Actividad':'#1f7aa6','Archivo Excel':'#1d6f42','Concepto':'#b86e00'};
@@ -179,9 +190,9 @@ document.querySelectorAll('nav button').forEach(b => b.onclick = () => irTab(b.d
 const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0'];
 $('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
 
-/* ====== FORMULARIOS (muro "p" y archivos "x") ====== */
+/* ====== FORMULARIOS ====== */
 function formHTML(p, muro){
-  return `<h3 style="color:var(--verde);margin-bottom:12px">${muro ? 'Nueva publicación' : 'Subir un archivo Excel'}</h3>
+  return `<h3 style="color:var(--verde);margin-bottom:12px">${muro ? 'Nueva publicación en el muro' : 'Previsualizar un archivo Excel local'}</h3>
   <div class="f">
    <div class="fr">
     <div><label for="${p}_autor">Publica</label><select id="${p}_autor">${MIEMBROS.map(n => `<option>${esc(n)}</option>`).join('')}</select></div>
@@ -190,15 +201,15 @@ function formHTML(p, muro){
    <div><label for="${p}_tit">Título</label><input id="${p}_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
    <div><label for="${p}_txt">${muro ? 'Procedimiento o explicación' : 'Descripción (opcional)'}</label><textarea id="${p}_txt" placeholder="${muro ? 'Escribe el paso a paso del ejercicio…' : 'Qué contiene este archivo…'}"></textarea></div>
    <div><label for="${p}_arch">${muro ? 'Fotos (hasta 4) o un archivo Excel, PDF o Word' : 'Archivo Excel (.xlsx, .xls, .csv), PDF, Word o fotos'} · máx. ${MAX_KB} KB</label><input type="file" id="${p}_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"><small id="${p}_info" style="color:var(--gris)"></small></div>
-   <div><label for="${p}_link">Enlace de Drive u OneDrive (opcional, para archivos grandes)</label><input id="${p}_link" type="url" placeholder="https://drive.google.com/…"></div>
+   <div><label for="${p}_link">Enlace de Drive u OneDrive (opcional)</label><input id="${p}_link" type="url" placeholder="https://drive.google.com/…"></div>
    <div id="${p}_err" class="aviso" style="display:none;background:#fde8e8;border-color:#d33" role="alert"></div>
-   <button type="button" class="btn ${muro ? '' : 'xl'}" id="${p}_btn">${muro ? 'Publicar en el muro' : 'Subir archivo'}</button>
+   <button type="button" class="btn ${muro ? '' : 'xl'}" id="${p}_btn">${muro ? 'Publicar en el muro' : 'Mostrar archivo en vista previa'}</button>
   </div>`;
 }
 $('form_muro').innerHTML = formHTML('p', true);
 $('form_arch').innerHTML = formHTML('x', false);
 
-/* ====== ALMACENAMIENTO (Firebase o local) ====== */
+/* ====== ALMACENAMIENTO ====== */
 let db = null;
 if (FIREBASE_CONFIG && typeof firebase !== 'undefined') { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.firestore(); }
 const LS = 'mf6c_posts';
@@ -216,10 +227,10 @@ const store = {
   async comment(id,c){ if(db) await db.collection('posts').doc(id).update({coms:firebase.firestore.FieldValue.arrayUnion(c)}); else mutLocal(id,p=>(p.coms=p.coms||[]).push(c)); }
 };
 $('aviso').innerHTML = db
-  ? '<div class="aviso ok">Publicaciones en línea: todo el grupo y la profesora ven lo mismo y nada se borra al cerrar la página.</div>'
-  : '<div class="aviso"><b>Atención, modo local:</b> lo que publiques solo se ve en este navegador y en este equipo. Tus compañeras y la profesora NO lo verán hasta que se conecte Firebase.</div>';
+  ? '<div class="aviso ok">Publicaciones en línea activas: todo el grupo y la profesora ven lo mismo en tiempo real.</div>'
+  : '<div class="aviso"><b>Nota sobre publicaciones locales:</b> Las publicaciones individuales realizadas mediante formularios del navegador quedan en modo local. Utilicen la <b>Carpeta de Google Drive</b> en la pestaña de archivos para entregas colaborativas permanentes.</div>';
 
-/* ====== ARCHIVOS, IMÁGENES Y DESCARGAS ====== */
+/* ====== MANEJO DE ARCHIVOS ====== */
 function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
 async function comprimir(file,max=900,q=.72){
   const src = await leer(file);
@@ -243,7 +254,7 @@ function descargar(a){
 }
 function enlaceExterno(p){ return p.link && /^https?:\/\//i.test(p.link) ? `<a class="arch" href="${esc(p.link)}" target="_blank" rel="noopener"><b class="ext">LINK</b>Abrir enlace</a>` : ''; }
 
-/* ====== PUBLICAR (sirve para el muro y para la pestaña Archivos) ====== */
+/* ====== PUBLICAR ====== */
 function info(p){
   $(p+'_info').innerHTML = [...$(p+'_arch').files].map(f => esc(f.name)+' · '+Math.round(f.size/1024)+' KB'+(!f.type.startsWith('image/') && f.size > MAX_KB*1024 ? ' <b style="color:#c22">(demasiado grande)</b>' : '')).join('<br>');
 }
@@ -253,24 +264,24 @@ async function publicar(p){
   $(p+'_err').style.display = 'none';
   if (!tit) return aviso('Escribe un título.');
   if (!txt && !files.length && !link) return aviso('Agrega una descripción, un archivo o un enlace.');
-  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Subiendo…';
+  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Procesando…';
   try {
     const imgs = []; let archivo = null;
     for (const f of files) {
       if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
       else if (!archivo) {
-        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB. Súbelo a Google Drive u OneDrive y pega el enlace en el campo de enlace.');
+        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB. Súbelo a la carpeta de Google Drive y pega el enlace.');
         archivo = {nombre:f.name, data:await leer(f)};
       }
     }
     const post = {autor:$(p+'_autor').value, tipo: p === 'p' ? $('p_tipo').value : 'Archivo Excel', titulo:tit, texto:txt, imgs, archivo, link, likes:0, coms:[], ts:Date.now()};
-    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado. Sube menos por publicación.');
+    if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado.');
     await store.add(post);
     ['tit','txt','arch','link'].forEach(k => $(p+'_'+k).value = ''); $(p+'_info').textContent = '';
-    toast('Listo, ya está publicado.');
+    toast('Listo, procesado.');
     (p === 'p' ? $('lista') : $('lista_arch')).scrollIntoView({behavior:'smooth'});
   } catch (e) {
-    aviso(e && e.name === 'QuotaExceededError' ? 'Este navegador se quedó sin espacio. Conecta Firebase o sube menos fotos.' : 'No se pudo subir: ' + (e.message || e));
+    aviso(e && e.name === 'QuotaExceededError' ? 'Almacenamiento del navegador lleno. Usa la carpeta de Google Drive.' : 'No se pudo subir: ' + (e.message || e));
   }
   btn.disabled = false; btn.textContent = etiqueta;
 }
@@ -291,7 +302,7 @@ function render(){
     ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
     <div class="cf"><input class="cn" placeholder="Tu nombre" maxlength="40" value="${esc(localStorage.getItem('mf6c_nombre')||'')}" aria-label="Tu nombre"><input class="ct" placeholder="Escribe un comentario…" maxlength="400" aria-label="Comentario"><button class="btn" data-a="com">Comentar</button></div>
    </div>
-  </article>`).join('') : '<div class="vacio">Aún no hay publicaciones. Sube el primer ejercicio del grupo.</div>';
+  </article>`).join('') : '<div class="vacio">Aún no hay publicaciones en esta vista.</div>';
 
   const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
@@ -299,7 +310,7 @@ function render(){
    ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div><div>${p.imgs.map((s,i)=>`<button type="button" class="arch" data-dli="${esc(p.id)}:${i}">Descargar foto ${i+1}</button>`).join('')}</div>` : ''}
    ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
    <div class="acts"><button class="btn s" data-a="del">Borrar</button></div></div>`).join('')
-   : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Usa el formulario de arriba para subir el primer Excel.</div>';
+   : '<div class="vacio" style="grid-column:1/-1">Vista previa local vacía. Utilicen la Carpeta Oficial de Google Drive arriba para revisar todos los archivos subidos por el grupo.</div>';
 }
 document.addEventListener('click', async e => {
   if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
@@ -315,7 +326,7 @@ document.addEventListener('click', async e => {
       if (liked.has(id)) return toast('Ya marcaste esta publicación.');
       liked.add(id); localStorage.setItem('mf6c_liked', JSON.stringify([...liked])); await store.like(id);
     } else if (b.dataset.a === 'del') {
-      if (prompt('Escribe la clave del grupo para borrar esto:') !== CLAVE_BORRAR) return toast('Clave incorrecta. No se borró nada.');
+      if (prompt('Escribe la clave del grupo para borrar esto:') !== CLAVE_BORRAR) return toast('Clave incorrecta.');
       await store.del(id); toast('Borrado.');
     } else if (b.dataset.a === 'com') {
       const n = card.querySelector('.cn').value.trim(), t = card.querySelector('.ct').value.trim();
