@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matemática Financiera · Grupo 10 · Universidad Agraria del Ecuador</title>
-<link rel="icon" href="logo.png">
+<link rel="icon" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +13,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--fondo);color:var(--tinta);line-height:1.6}
 h1,h2,h3{font-family:'Bricolage Grotesque','Source Sans 3',sans-serif;line-height:1.1}
-.hero{background:linear-gradient(100deg,rgba(5,34,25,.97) 0%,rgba(11,59,46,.88) 48%,rgba(11,59,46,.18) 100%),url(campus.png) center/cover;color:#fff;padding:54px 20px 60px}
+.hero{background:linear-gradient(100deg,rgba(5,34,25,.97) 0%,rgba(11,59,46,.88) 48%,rgba(11,59,46,.18) 100%),url(campus.jpg) center/cover;color:#fff;padding:54px 20px 60px}
 .hero-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:34px}
 .logo{width:clamp(130px,20vw,210px);aspect-ratio:1;border-radius:50%;background:#fff;padding:8px;border:7px solid var(--oro);box-shadow:0 0 0 6px rgba(242,183,5,.25),0 12px 40px rgba(0,0,0,.45);flex:none}
 .lema{display:inline-block;background:var(--oro);color:var(--verde);font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:14px;font-size:.95rem}
@@ -60,7 +60,7 @@ label{font-weight:700;font-size:.88rem;color:var(--verde)}
 .post .tx{white-space:pre-wrap;max-width:75ch}
 .imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
 .imgs img{width:100%;height:170px;object-fit:cover;border-radius:8px;border:1px solid var(--linea);cursor:zoom-in}
-.arch{display:inline-flex;gap:10px;align-items:center;margin-top:12px;padding:8px 14px 8px 8px;background:var(--fondo);border:1px solid var(--linea);border-radius:8px;color:var(--verde);font-weight:700;text-decoration:none;font-size:.9rem}
+.arch{display:inline-flex;gap:10px;align-items:center;margin:12px 8px 0 0;padding:8px 14px 8px 8px;background:var(--fondo);border:1px solid var(--linea);border-radius:8px;color:var(--verde);font-weight:700;text-decoration:none;font-size:.9rem}
 .arch:hover{background:#e3f6ea}
 .ext{background:#1d6f42;color:#fff;border-radius:6px;padding:3px 9px;font-size:.78rem}.ext.o{background:var(--gris)}
 .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
@@ -87,7 +87,7 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 
 <header class="hero">
  <div class="hero-in">
-  <img class="logo" src="logo.png" alt="Escudo de la Universidad Agraria del Ecuador">
+  <img class="logo" src="logo.jpg" alt="Escudo de la Universidad Agraria del Ecuador">
   <div>
    <span class="lema">Formando a los Misioneros de la Técnica en el Agro</span>
    <h1>Universidad Agraria <em>del Ecuador</em></h1>
@@ -130,7 +130,9 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
     </div>
     <div><label for="p_tit">Título</label><input id="p_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
     <div><label for="p_txt">Procedimiento o explicación</label><textarea id="p_txt" placeholder="Escribe el paso a paso del ejercicio…"></textarea></div>
-    <div><label for="p_arch">Fotos (hasta 4) o un archivo Excel, PDF o Word (máx. 600 KB)</label><input type="file" id="p_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"></div>
+    <div><label for="p_arch">Fotos (hasta 4) o un archivo Excel, PDF o Word (máx. 700 KB)</label><input type="file" id="p_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"><small id="p_info" style="color:var(--gris)"></small></div>
+    <div><label for="p_link">Enlace de Drive u OneDrive (opcional, para Excel grandes)</label><input id="p_link" type="url" placeholder="https://drive.google.com/…"></div>
+    <div id="p_err" class="aviso" style="display:none;background:#fde8e8;border-color:#d33" role="alert"></div>
     <button class="btn" id="p_btn">Publicar en el muro</button>
    </div>
   </div>
@@ -152,7 +154,7 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 </main>
 
 <footer>
- <img src="logo.png" alt="Escudo UAE"><br>
+ <img src="logo.jpg" alt="Escudo UAE"><br>
  <b>Universidad Agraria del Ecuador</b><br>Proyecto Integrador de Matemática Financiera · Grupo 10 · Paralelo 6C
 </footer>
 <div id="lb"><img alt="Imagen ampliada"></div>
@@ -210,7 +212,7 @@ const store = {
 };
 $('aviso').innerHTML = db
   ? '<div class="aviso ok">Publicaciones en línea: todo el grupo y la profesora ven lo mismo y nada se borra al cerrar la página.</div>'
-  : '<div class="aviso"><b>Modo local:</b> lo que publiques solo se guarda en este navegador. Para que todos vean lo mismo, conecta Firebase (ver guía).</div>';
+  : '<div class="aviso"><b>Atención, modo local:</b> lo que publiques solo se ve en este navegador y en este equipo. Tus compañeras y la profesora NO lo verán hasta que se conecte Firebase.</div>';
 
 /* ====== ARCHIVOS E IMÁGENES ====== */
 function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
@@ -223,27 +225,34 @@ function enlaceArchivo(a){
   const excel = ['XLSX','XLS','CSV'].includes(ext);
   return `<a class="arch" href="${a.data}" download="${esc(a.nombre)}"><b class="ext ${excel?'':'o'}">${esc(ext)}</b>Descargar ${esc(a.nombre)}</a>`;
 }
+function enlaceExterno(p){ return p.link && /^https?:\/\//i.test(p.link) ? `<a class="arch" href="${esc(p.link)}" target="_blank" rel="noopener"><b class="ext">LINK</b>Abrir enlace</a>` : ''; }
+$('p_arch').onchange = () => { $('p_info').innerHTML = [...$('p_arch').files].map(f => esc(f.name)+' · '+Math.round(f.size/1024)+' KB'+(!f.type.startsWith('image/') && f.size > 700*1024 ? ' <b style="color:#c22">(demasiado grande)</b>' : '')).join('<br>'); };
 
 /* ====== PUBLICAR ====== */
 $('p_btn').onclick = async () => {
   const tit = $('p_tit').value.trim(), txt = $('p_txt').value.trim();
   if (!tit || !txt) return toast('Escribe al menos el título y el procedimiento.');
-  const btn = $('p_btn'); btn.disabled = true; btn.textContent = 'Publicando…';
+  const btn = $('p_btn'); btn.disabled = true; btn.textContent = 'Publicando…'; $('p_err').style.display = 'none';
   try {
     const imgs = []; let archivo = null;
     for (const f of $('p_arch').files) {
       if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
       else if (!archivo) {
-        if (f.size > 600*1024) throw new Error('El archivo “'+f.name+'” pesa más de 600 KB.');
+        if (f.size > 700*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es 700 KB. Súbelo a Google Drive u OneDrive y pega el enlace en el campo de enlace.');
         archivo = {nombre:f.name, data:await leer(f)};
       }
     }
-    const post = {autor:$('p_autor').value, tipo:$('p_tipo').value, titulo:tit, texto:txt, imgs, archivo, likes:0, coms:[], ts:Date.now()};
+    const post = {autor:$('p_autor').value, tipo:$('p_tipo').value, titulo:tit, texto:txt, imgs, archivo, link:$('p_link').value.trim(), likes:0, coms:[], ts:Date.now()};
     if (JSON.stringify(post).length > 950000) throw new Error('Las fotos y archivos pesan demasiado. Sube menos fotos por publicación.');
     await store.add(post);
-    $('p_tit').value = ''; $('p_txt').value = ''; $('p_arch').value = '';
-    toast('Publicado en el muro.');
-  } catch (e) { toast('No se pudo publicar: ' + (e.message || e)); }
+    $('p_tit').value = ''; $('p_txt').value = ''; $('p_arch').value = ''; $('p_link').value = ''; $('p_info').textContent = ''; $('p_err').style.display = 'none';
+    toast('Publicado en el muro.'); $('lista').scrollIntoView({behavior:'smooth'});
+  } catch (e) {
+    let m = 'No se pudo publicar: ' + (e.message || e);
+    if (e && e.name === 'QuotaExceededError') m = 'No se pudo publicar: este navegador se quedó sin espacio. Conecta Firebase o sube menos fotos.';
+    $('p_err').textContent = m; $('p_err').style.display = 'block'; $('p_err').scrollIntoView({behavior:'smooth',block:'center'});
+    toast('No se pudo publicar. Lee el aviso rojo.');
+  }
   btn.disabled = false; btn.textContent = 'Publicar en el muro';
 };
 
@@ -253,10 +262,10 @@ let posts = [];
 function render(){
   $('lista').innerHTML = posts.length ? posts.map(p => `
   <article class="post" data-id="${esc(p.id)}" style="--c:${COLORES_TIPO[p.tipo]||'#14624b'}">
-   <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="logo.png" alt="UAE"></div>
+   <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="logo.jpg" alt="UAE"></div>
    <h3>${esc(p.titulo)}</h3><div class="tx">${esc(p.texto)}</div>
    ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto del procedimiento" loading="lazy">`).join('')}</div>` : ''}
-   ${p.archivo ? enlaceArchivo(p.archivo) : ''}
+   ${p.archivo ? enlaceArchivo(p.archivo) : ''}${enlaceExterno(p)}
    <div class="acts"><button class="btn s" data-a="like">${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del">Borrar</button></div>
    <div class="coms">
     ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
@@ -264,11 +273,11 @@ function render(){
    </div>
   </article>`).join('') : '<div class="vacio">Aún no hay publicaciones. Sube el primer ejercicio del grupo.</div>';
 
-  const conArch = posts.filter(p => p.archivo || (p.imgs && p.imgs.length));
+  const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
    <div class="calc"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
    ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
-   ${p.archivo ? enlaceArchivo(p.archivo) : ''}</div>`).join('')
+   ${p.archivo ? enlaceArchivo(p.archivo) : ''}${enlaceExterno(p)}</div>`).join('')
    : '<div class="vacio" style="grid-column:1/-1">Todavía no hay archivos ni fotos. Usa el botón verde para subir el primer Excel.</div>';
 }
 document.addEventListener('click', async e => {
