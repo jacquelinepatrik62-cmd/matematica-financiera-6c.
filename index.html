@@ -109,7 +109,7 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
 <main>
  <section class="tab on" id="inicio">
   <h2>Integrantes del Grupo 10</h2>
-  <p class="sub">Computación, paralelo 6C. Para poner tu foto, sube foto1.jpg, foto2.jpg, foto3.jpg o foto4.jpg al repositorio.</p>
+  <p class="sub">Computación, paralelo 6C. Para poner tu foto, sube foto1.jpg, foto2.jpg, foto3.jpg, foto4.jpg o foto5.jpg al repositorio.</p>
   <div class="team" id="team"></div>
   <div class="panel" style="margin-top:22px">
    <h3 style="color:var(--verde);margin-bottom:8px">Fórmulas base</h3>
@@ -174,7 +174,8 @@ const FIREBASE_CONFIG = {
 };
 
 const CLAVE_BORRAR = "grupo10";
-const MIEMBROS = ["Asunción Morocho Ashley Danna", "Asunción Morocho Ashley Priscila", "Reyna Flores Geancarlos Alexander", "Jacqueline Patricia Díaz Solís", "Lilian Zamora"];;const MAX_KB = 700;
+const MIEMBROS = ["Asunción Morocho Ashley Danna", "Asunción Morocho Ashley Priscila", "Reyna Flores Geancarlos Alexander", "Jacqueline Patricia Díaz Solís", "Lilian Zamora"];
+const MAX_KB = 700;
 
 /* ====== UTILIDADES ====== */
 const $ = id => document.getElementById(id);
@@ -193,8 +194,8 @@ function irTab(id){
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => irTab(b.dataset.t));
 
 /* ====== INTEGRANTES ====== */
-const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0'];
-$('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
+const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0','#2d6a4f'];
+$('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i % colores.length]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
 
 /* ====== FORMULARIOS ====== */
 function formHTML(p, muro){
@@ -294,6 +295,12 @@ async function publicar(p){
 ['p','x'].forEach(p => { $(p+'_btn').onclick = () => publicar(p); $(p+'_arch').onchange = () => info(p); });
 
 /* ====== RENDERIZAR MURO Y ARCHIVOS ====== */
+const COLORES_TIPO = {
+  'Ejercicio resuelto': '#14624b',
+  'Actividad': '#1f7aa6',
+  'Archivo Excel': '#b86e00',
+  'Concepto': '#7a4fb0'
+};
 const liked = new Set(JSON.parse(localStorage.getItem('mf6c_liked') || '[]'));
 let posts = [];
 function render(){
