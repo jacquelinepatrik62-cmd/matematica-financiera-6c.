@@ -174,14 +174,15 @@ const FIREBASE_CONFIG = {
 };
 
 const CLAVE_BORRAR = "grupo10";
-const MIEMBROS = ["Asunción Morocho Ashley Danna", "Asunción Morocho Ashley Priscila", "Reyna Flores Geancarlos Alexander", "Jacqueline Patricia Díaz Solís", "Lilian Zamora"];const MAX_KB = 700;
+const MIEMBROS = ["Asunción Morocho Ashley Danna", "Asunción Morocho Ashley Priscila", "Reyna Flores Geancarlos Alexander", "Jacqueline Patricia Díaz Solís", "Lilian Zamora"];;const MAX_KB = 700;
+
 /* ====== UTILIDADES ====== */
 const $ = id => document.getElementById(id);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = s => String(s ?? '').replace(/[&<"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const ini = n => n.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
 const fecha = t => new Date(t).toLocaleString('es-EC',{dateStyle:'medium',timeStyle:'short'});
 const money = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',4000)}
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);t.h=setTimeout(()=>t.style.display='none',4000)}
 
 /* ====== PESTAÑAS ====== */
 function irTab(id){
