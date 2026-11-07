@@ -4,53 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matemática Financiera · Grupo 10 · Universidad Agraria del Ecuador</title>
-<link rel="icon" href="logo.jpg">
+<link rel="icon" id="favicon" href="logo.jpg">
+<script>function lf(i){i.onerror=null;i.src='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#0b3b2e"/><text x="50" y="62" font-size="32" font-weight="800" text-anchor="middle" fill="#f2b705" font-family="Arial">UAE</text></svg>')}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--verde:#0b3b2e;--verde2:#14624b;--hoja:#bfe35a;--oro:#f2b705;--fondo:#eef4ef;--tinta:#16251f;--gris:#5d6e66;--linea:#d3e0d8}
+:root{--verde:#0b3b2e;--verde2:#14624b;--hoja:#bfe35a;--oro:#f2b705;--azul:#1f7aa6;--fondo:#eef4ef;--tinta:#16251f;--gris:#5d6e66;--linea:#d3e0d8;--rojo:#d33}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--fondo);color:var(--tinta);line-height:1.6}
 h1,h2,h3{font-family:'Bricolage Grotesque','Source Sans 3',sans-serif;line-height:1.1}
-.hero{background:linear-gradient(100deg,rgba(5,34,25,.97) 0%,rgba(11,59,46,.88) 48%,rgba(11,59,46,.18) 100%),url(campus.jpg) center/cover;color:#fff;padding:54px 20px 60px}
-.hero-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:34px}
-.logo{width:clamp(130px,20vw,210px);aspect-ratio:1;border-radius:50%;background:#fff;padding:8px;border:7px solid var(--oro);box-shadow:0 0 0 6px rgba(242,183,5,.25),0 12px 40px rgba(0,0,0,.45);flex:none}
-.lema{display:inline-block;background:var(--oro);color:var(--verde);font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:14px;font-size:.95rem}
-.hero h1{font-size:clamp(2.3rem,6.6vw,4.7rem);font-weight:800;text-shadow:0 3px 14px rgba(0,0,0,.5)}
+/* PORTADA */
+.banner-wrap{background:linear-gradient(120deg,#d9efe0,#fff7dc);border-bottom:6px solid var(--oro)}
+.banner{display:block;width:100%;max-width:1400px;margin:0 auto;height:auto;min-height:120px;object-fit:cover}
+.hero{position:relative;overflow:hidden;background:linear-gradient(110deg,#052219 0%,var(--verde) 55%,var(--verde2) 100%);color:#fff;padding:46px 20px 54px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(242,183,5,.35),transparent 70%)}
+.hero::before{width:380px;height:380px;right:-90px;top:-120px}
+.hero::after{width:300px;height:300px;left:-80px;bottom:-140px;background:radial-gradient(circle,rgba(191,227,90,.3),transparent 70%)}
+.hero-in{position:relative;max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:34px}
+.logo{width:clamp(120px,18vw,190px);aspect-ratio:1;border-radius:50%;background:#fff;padding:8px;border:7px solid var(--oro);box-shadow:0 0 0 6px rgba(242,183,5,.25),0 12px 40px rgba(0,0,0,.45);flex:none;animation:flota 4s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-8px)}}
+.lema{display:inline-block;background:var(--oro);color:var(--verde);font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:12px;font-size:.95rem}
+.hero h1{font-size:clamp(2.1rem,6vw,4.2rem);font-weight:800;text-shadow:0 3px 14px rgba(0,0,0,.5)}
 .hero h1 em{font-style:normal;color:var(--oro);display:block}
-.pi{font-size:1.15rem;margin:14px 0 18px;color:#e5f3ea;font-weight:600}
+.pi{font-size:1.12rem;margin:12px 0 16px;color:#e5f3ea;font-weight:600}
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chip{padding:7px 18px;border-radius:99px;font-weight:700}
-.c1{background:#fff;color:var(--verde)}.c2{background:var(--hoja);color:var(--verde)}
-nav{position:sticky;top:0;z-index:20;background:var(--verde);border-bottom:4px solid var(--oro);display:flex;justify-content:center;gap:6px;padding:8px;flex-wrap:wrap}
-nav button{border:0;background:rgba(255,255,255,.08);padding:11px 20px;border-radius:8px;font:700 .96rem 'Source Sans 3',sans-serif;color:#e5f3ea;cursor:pointer}
-nav button:hover{background:rgba(255,255,255,.2)}
-nav button.on{background:var(--oro);color:var(--verde)}
+.c1{background:#fff;color:var(--verde)}.c2{background:var(--hoja);color:var(--verde)}.c3{background:var(--oro);color:var(--verde)}
+.stats{max-width:1120px;margin:-30px auto 0;padding:0 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;position:relative;z-index:5}
+.st{background:#fff;border-radius:14px;padding:16px;text-align:center;border-bottom:5px solid var(--oro);box-shadow:0 8px 22px rgba(11,59,46,.15)}
+.st i{font-size:1.6rem;color:var(--verde2)}.st b{display:block;font:800 1.6rem 'Bricolage Grotesque';color:var(--verde)}.st span{font-size:.85rem;color:var(--gris)}
+nav{position:sticky;top:0;z-index:20;background:var(--verde);border-bottom:4px solid var(--oro);display:flex;justify-content:center;gap:6px;padding:8px;flex-wrap:wrap;margin-top:26px}
+nav button{border:0;background:rgba(255,255,255,.08);padding:11px 18px;border-radius:8px;font:700 .96rem 'Source Sans 3',sans-serif;color:#e5f3ea;cursor:pointer}
+nav button:hover{background:rgba(255,255,255,.2)}nav button.on{background:var(--oro);color:var(--verde)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
-main{max-width:1120px;margin:0 auto;padding:32px 18px 60px}
-.tab{display:none}.tab.on{display:block}
+main{max-width:1120px;margin:0 auto;padding:30px 18px 60px}
+.tab{display:none}.tab.on{display:block;animation:ent .4s}
+@keyframes ent{from{opacity:0;transform:translateY(10px)}}
 h2{font-size:1.9rem;color:var(--verde);margin-bottom:6px}
 .sub{color:var(--gris);margin-bottom:22px}
 .panel{background:#fff;border:1px solid var(--linea);border-top:5px solid var(--oro);border-radius:12px;padding:22px;margin-bottom:20px}
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.m{background:#fff;border:1px solid var(--linea);border-bottom:5px solid var(--oro);border-radius:12px;padding:22px;text-align:center}
-.av{width:100px;height:100px;border-radius:50%;margin:0 auto 12px;position:relative;overflow:hidden;display:grid;place-items:center;font:800 2rem 'Bricolage Grotesque';color:#fff;border:4px solid var(--oro)}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.m{background:#fff;border:1px solid var(--linea);border-bottom:5px solid var(--oro);border-radius:12px;padding:22px;text-align:center;transition:.25s}
+.m:hover{transform:translateY(-6px);box-shadow:0 12px 26px rgba(11,59,46,.18)}
+.av{width:104px;height:104px;border-radius:50%;margin:0 auto 12px;position:relative;overflow:hidden;display:grid;place-items:center;font:800 2rem 'Bricolage Grotesque';color:#fff;border:4px solid var(--oro)}
 .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .m b{display:block;color:var(--verde)}.m span{font-size:.85rem;color:var(--gris)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.fcard{border-radius:12px;padding:16px;color:#fff;font-size:.98rem}
+.fcard h4{font:800 1.1rem 'Bricolage Grotesque';margin-bottom:6px}
+.fcard code{display:block;background:rgba(0,0,0,.22);border-radius:6px;padding:6px 10px;margin-top:4px;font-size:1rem}
 .aviso{background:#fff7dc;border:1px solid var(--oro);border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:.92rem}
 .aviso.ok{background:#e3f6ea;border-color:var(--verde2)}
-.f{display:grid;gap:10px}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f{display:grid;gap:10px}.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 input,select,textarea{width:100%;padding:11px 13px;border:1px solid #bccdc3;border-radius:8px;font:inherit;background:#fff}
 textarea{min-height:100px;resize:vertical}
 label{font-weight:700;font-size:.88rem;color:var(--verde)}
 .btn{border:0;background:var(--verde2);color:#fff;padding:11px 22px;border-radius:8px;font:700 .95rem 'Source Sans 3';cursor:pointer;justify-self:start;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn:hover{background:var(--verde)}.btn:disabled{opacity:.6;cursor:wait}
-.btn.xl{background:#1d6f42;font-size:1.05rem;padding:14px 26px}
-.btn.s{background:none;color:var(--verde2);border:1px solid var(--linea);padding:6px 12px;font-size:.85rem}
-.btn.s:hover{background:var(--fondo)}
+.btn.xl{font-size:1.05rem;padding:14px 26px}
+.btn.s{background:none;color:var(--verde2);border:1px solid var(--linea);padding:6px 12px;font-size:.85rem}.btn.s:hover{background:var(--fondo)}
 .post{--c:#14624b;background:#fff;border:1px solid var(--linea);border-left:7px solid var(--c);border-radius:12px;padding:20px;margin-bottom:18px}
 .ph{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .pa{width:42px;height:42px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
@@ -62,8 +76,7 @@ label{font-weight:700;font-size:.88rem;color:var(--verde)}
 .imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
 .imgs img{width:100%;height:170px;object-fit:cover;border-radius:8px;border:1px solid var(--linea);cursor:zoom-in}
 .arch{display:inline-flex;gap:10px;align-items:center;margin:12px 8px 0 0;padding:8px 14px 8px 8px;background:var(--fondo);border:1px solid var(--linea);border-radius:8px;color:var(--verde);font-weight:700;text-decoration:none;font-size:.9rem}
-.arch:hover{background:#e3f6ea}
-button.arch{cursor:pointer;font-family:inherit}
+.arch:hover{background:#e3f6ea}button.arch{cursor:pointer;font-family:inherit}
 .ext{background:#1d6f42;color:#fff;border-radius:6px;padding:3px 9px;font-size:.78rem}.ext.o{background:var(--gris)}
 .acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .coms{margin-top:14px;border-top:1px solid var(--linea);padding-top:12px}
@@ -73,37 +86,78 @@ button.arch{cursor:pointer;font-family:inherit}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
 .calc{background:#fff;border:1px solid var(--linea);border-top:5px solid var(--verde2);border-radius:12px;padding:20px}
 .calc h3{color:var(--verde);margin-bottom:12px}
-.calc .f{margin-bottom:12px}
-.res{background:#e3f6ea;border-left:5px solid var(--oro);border-radius:8px;padding:12px 14px}
-.res b{display:block;font-size:1.05rem;color:var(--verde)}.res small{color:var(--gris)}
+/* CALCULADORA */
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pill{border:2px solid var(--verde2);background:#fff;color:var(--verde2);border-radius:99px;padding:9px 18px;font:700 .95rem 'Source Sans 3';cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.pill.on{background:var(--verde2);color:#fff}
+.cw{display:grid;grid-template-columns:minmax(250px,330px) 1fr;gap:20px;align-items:start}
+.rbox{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.rk{flex:1;min-width:170px;background:linear-gradient(135deg,var(--verde2),var(--verde));color:#fff;border-radius:12px;padding:14px 16px;border-bottom:5px solid var(--oro)}
+.rk small{opacity:.85;display:block}.rk b{font:800 1.6rem 'Bricolage Grotesque'}
+.steps{list-style:none;counter-reset:s;display:grid;gap:8px;margin-bottom:16px}
+.steps li{counter-increment:s;background:var(--fondo);border-left:5px solid var(--oro);border-radius:8px;padding:9px 12px 9px 46px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:10px;top:8px;width:26px;height:26px;border-radius:50%;background:var(--verde2);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem}
+.dg{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:8px;overflow-x:auto}
+.dg svg{width:100%;min-width:520px;height:auto;display:block}
 .vacio{text-align:center;color:var(--gris);padding:34px;border:2px dashed var(--linea);border-radius:12px}
 #lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:50;cursor:zoom-out}
 #lb img{max-width:92vw;max-height:90vh;border-radius:8px}
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--verde);color:#fff;padding:11px 20px;border-radius:8px;display:none;z-index:60;max-width:90vw;border:2px solid var(--oro)}
 footer{background:var(--verde);color:#d3e6dc;text-align:center;font-size:.9rem;padding:26px 20px;border-top:4px solid var(--oro)}
 footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;margin-bottom:8px}
-@media(max-width:760px){.hero-in{flex-direction:column;text-align:center}.fr,.cf{grid-template-columns:1fr}.chips{justify-content:center}}
+
+.banner-wrap{position:relative;overflow:hidden;min-height:140px}
+.banner{animation:zoom 18s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.06)}}
+.banner-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-100%);animation:sweep 5s infinite;pointer-events:none}
+@keyframes sweep{60%,100%{transform:translateX(100%)}}
+.hero{background-size:200% 200%;animation:grad 12s ease infinite}
+@keyframes grad{50%{background-position:100% 50%}}
+.hero h1 em{background:linear-gradient(90deg,#f2b705,#fff3b0,#f2b705);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;animation:shine 3s linear infinite}
+@keyframes shine{to{background-position:200% 0}}
+.lema{animation:lat 2.2s ease-in-out infinite}@keyframes lat{50%{transform:scale(1.05)}}
+.fl{position:absolute;bottom:-50px;color:rgba(242,183,5,.55);font-size:2rem;animation:sube 9s linear infinite;pointer-events:none}
+@keyframes sube{to{transform:translateY(-440px) rotate(360deg);opacity:0}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}.reveal.vis{opacity:1;transform:none}
+.avw{position:relative;width:104px;margin:0 auto 12px}.avw .av{margin:0}
+.camb{position:absolute;right:-6px;bottom:-4px;width:34px;height:34px;border-radius:50%;border:2px solid #fff;background:var(--oro);color:var(--verde);cursor:pointer;font-size:.9rem}
+.camb:hover{transform:scale(1.15)}
+.cam{position:absolute;right:14px;bottom:14px;z-index:3;box-shadow:0 4px 14px rgba(0,0,0,.3);background:#fff}
+.fab{position:fixed;right:20px;bottom:20px;z-index:40;width:62px;height:62px;border-radius:50%;border:4px solid #fff;background:var(--oro);color:var(--verde);font-size:1.6rem;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:lat 2s ease-in-out infinite}
+@keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.06)}}.rk.pop{animation:pop .5s}
+#fbchip{background:#ffe9a8;color:var(--verde)}
+.logow{position:relative;flex:none;animation:flota 4s ease-in-out infinite}.logo{animation:none}.logow .camb{width:46px;height:46px;right:4px;bottom:4px;font-size:1.15rem;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+@media(max-width:820px){.hero-in{flex-direction:column;text-align:center}.fr,.cf,.cw{grid-template-columns:1fr}.chips{justify-content:center}}
 </style>
 </head>
 <body>
 
-<header class="hero">
+<div class="banner-wrap"><img class="banner" id="banner_img" src="banner.jpg" alt="Somos la nueva UAE · Universidad Agraria del Ecuador" onerror="this.style.display='none'"><button type="button" class="btn s cam" id="banner_btn"><i class="fa-solid fa-camera"></i> Cambiar portada</button></div>
+
+<header class="hero"><i class="fa-solid fa-coins fl" style="left:6%"></i><i class="fa-solid fa-seedling fl" style="left:22%;animation-delay:2s;color:rgba(191,227,90,.6)"></i><i class="fa-solid fa-percent fl" style="left:48%;animation-delay:4s"></i><i class="fa-solid fa-chart-line fl" style="left:70%;animation-delay:1s;color:rgba(191,227,90,.6)"></i><i class="fa-solid fa-dollar-sign fl" style="left:88%;animation-delay:3s"></i>
  <div class="hero-in">
-  <img class="logo" src="logo.jpg" alt="Escudo de la Universidad Agraria del Ecuador">
+  <div class="logow"><img class="logo" id="logo_img" src="logo.jpg" alt="Escudo de la Universidad Agraria del Ecuador" onerror="lf(this)"><button type="button" class="camb" id="logo_btn" title="Subir logo o imagen" aria-label="Subir logo o imagen"><i class="fa-solid fa-camera"></i></button></div>
   <div>
-   <span class="lema">Formando a los Misioneros de la Técnica en el Agro</span>
-   <h1>Universidad Agraria <em>del Ecuador</em></h1>
-   <p class="pi">Proyecto Integrador de Matemática Financiera · Primer parcial</p>
-   <div class="chips"><span class="chip c1">Ingeniería en Computación</span><span class="chip c2">Paralelo 6C · Grupo 10</span></div>
+   <span class="lema"><i class="fa-solid fa-seedling"></i> Formando a los Misioneros de la Técnica en el Agro</span>
+   <h1>Matemática Financiera <em>Grupo 10</em></h1>
+   <p class="pi">Proyecto Integrador · Primer parcial · Universidad Agraria del Ecuador</p>
+   <div class="chips"><span class="chip c1">Ingeniería en Computación</span><span class="chip c2">Paralelo 6C</span><span class="chip c3">Ejercicios, Excel y calculadoras</span><span class="chip" id="fbchip">Conectando Firebase…</span></div>
   </div>
  </div>
 </header>
 
+<section class="stats" aria-label="Resumen">
+ <div class="st"><i class="fa-solid fa-users"></i><b>5</b><span>Integrantes</span></div>
+ <div class="st"><i class="fa-solid fa-calculator"></i><b>5</b><span>Calculadoras con diagrama</span></div>
+ <div class="st"><i class="fa-solid fa-cloud-arrow-up"></i><b id="n_posts">0</b><span>Publicaciones en la nube</span></div>
+ <div class="st"><i class="fa-solid fa-file-excel"></i><b id="n_arch">0</b><span>Archivos compartidos</span></div>
+</section>
+
 <nav aria-label="Secciones">
- <button class="on" data-t="inicio">Integrantes</button>
- <button data-t="muro">Muro del grupo</button>
- <button data-t="archivos">Archivos y Excel</button>
- <button data-t="calc">Calculadoras</button>
+ <button class="on" data-t="inicio"><i class="fa-solid fa-users"></i> Integrantes</button>
+ <button data-t="muro"><i class="fa-solid fa-comments"></i> Muro del grupo</button>
+ <button data-t="archivos"><i class="fa-solid fa-folder-open"></i> Archivos y Excel</button>
+ <button data-t="calc"><i class="fa-solid fa-calculator"></i> Calculadoras</button>
 </nav>
 
 <main>
@@ -111,18 +165,29 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
   <h2>Integrantes del Grupo 10</h2>
   <p class="sub">Computación, paralelo 6C. Para poner tu foto, sube foto1.jpg, foto2.jpg, foto3.jpg, foto4.jpg o foto5.jpg al repositorio.</p>
   <div class="team" id="team"></div>
-  <div class="panel" style="margin-top:22px">
-   <h3 style="color:var(--verde);margin-bottom:8px">Fórmulas base</h3>
-   <p><b>Interés simple:</b> I = C · i · t &nbsp;|&nbsp; M = C + I</p>
-   <p><b>Descuento simple:</b> D = M · d · t &nbsp;|&nbsp; VT = M − D</p>
-   <p><b>Interés compuesto:</b> M = C · (1 + i)ⁿ</p>
+  <div class="panel" style="margin-top:24px">
+   <h3 style="color:var(--verde);margin-bottom:12px">Fórmulas base del proyecto</h3>
+   <div class="fgrid">
+    <div class="fcard" style="background:#14624b"><h4>Interés simple</h4><code>I = C · i · t</code><code>M = C + I</code></div>
+    <div class="fcard" style="background:#1f7aa6"><h4>Descuento simple</h4><code>D = M · d · t</code><code>VT = M − D</code></div>
+    <div class="fcard" style="background:#b86e00"><h4>Interés compuesto</h4><code>M = C · (1 + i)ⁿ</code><code>I = M − C</code></div>
+    <div class="fcard" style="background:#7a4fb0"><h4>Valor presente y tasas</h4><code>C = M / (1 + i)ⁿ</code><code>TEA = (1 + j/m)ᵐ − 1</code></div>
+   </div>
   </div>
  </section>
 
  <section class="tab" id="muro">
   <h2>Muro del grupo</h2>
-  <p class="sub">Publica ejercicios, actividades y procedimientos del grupo.</p>
+  <p class="sub">Publica ejercicios, actividades y procedimientos. Todo queda guardado en la nube y lo ve toda la clase.</p>
   <div id="aviso"></div>
+  <button type="button" class="btn s" id="fb_btn" style="margin-bottom:14px"><i class="fa-solid fa-plug"></i> Conectar / cambiar Firebase</button>
+  <div class="panel" id="fb_panel" style="display:none">
+   <h3 style="color:var(--verde);margin-bottom:8px">Conectar con tu proyecto de Firebase</h3>
+   <p class="sub" style="margin-bottom:10px">En Firebase: Configuración del proyecto → Tus apps → Web → copia el bloque <b>firebaseConfig</b> y pégalo aquí. Luego en Firestore crea la base de datos y permite leer y escribir en las colecciones <b>posts</b> y <b>config</b>.</p>
+   <textarea id="fb_txt" placeholder='apiKey: "…", authDomain: "…", projectId: "…", storageBucket: "…", messagingSenderId: "…", appId: "…"'></textarea>
+   <div class="acts"><button type="button" class="btn" id="fb_save"><i class="fa-solid fa-link"></i> Guardar y conectar</button><button type="button" class="btn s" id="fb_reset">Volver a la configuración original</button></div>
+   <small style="color:var(--gris)">Esto se guarda en este navegador. Para dejarlo fijo para todos, reemplaza FIREBASE_CONFIG en el código.</small>
+  </div>
   <div class="panel" id="form_muro"></div>
   <div id="lista"></div>
  </section>
@@ -130,33 +195,39 @@ footer img{width:70px;height:70px;border-radius:50%;background:#fff;padding:3px;
  <section class="tab" id="archivos">
   <h2>Archivos, Excel y Evidencias Semanales</h2>
   <p class="sub">Carpeta compartida y repositorio oficial del equipo en la nube.</p>
-  
-  <div class="panel" style="text-align:center; padding:35px 20px; background:#f0fdf4; border:2px dashed #14624b; margin-bottom:25px;">
-   <i class="fa-brands fa-google-drive" style="font-size:3.5rem; color:#14624b; margin-bottom:12px;"></i>
-   <h3 style="color:var(--verde); margin-bottom:8px;">Carpeta Oficial del Grupo 10 en Google Drive</h3>
-   <p style="color:var(--gris); margin-bottom:20px; font-size:0.95rem;">
-    Accede a los archivos de Excel, imágenes y actividades de forma permanente desde la nube.
-   </p>
-   <a href="https://drive.google.com/drive/folders/1mugXCMzJgQsPzhpywAQQSjfs-HigaZMl?usp=drive_link" target="_blank" rel="noopener" class="btn xl" style="background:#14624b; color:#fff;">
-    <i class="fa-solid fa-folder-open"></i> Abrir Carpeta Compartida en Google Drive
-   </a>
+  <div class="panel" style="text-align:center;padding:35px 20px;background:#f0fdf4;border:2px dashed #14624b;margin-bottom:25px">
+   <i class="fa-brands fa-google-drive" style="font-size:3.5rem;color:#14624b;margin-bottom:12px"></i>
+   <h3 style="color:var(--verde);margin-bottom:8px">Carpeta Oficial del Grupo 10 en Google Drive</h3>
+   <p style="color:var(--gris);margin-bottom:20px;font-size:.95rem">Accede a los archivos de Excel, imágenes y actividades de forma permanente desde la nube.</p>
+   <a href="https://drive.google.com/drive/folders/1mugXCMzJgQsPzhpywAQQSjfs-HigaZMl?usp=drive_link" target="_blank" rel="noopener" class="btn xl"><i class="fa-solid fa-folder-open"></i> Abrir Carpeta Compartida en Google Drive</a>
   </div>
-
   <div class="panel" id="form_arch"></div>
   <div class="grid" id="lista_arch"></div>
  </section>
 
  <section class="tab" id="calc">
-  <h2>Calculadoras interactivas</h2>
-  <p class="sub">Cambia los valores y mira el procedimiento paso a paso.</p>
-  <div class="grid" id="calcs"></div>
+  <h2>Calculadoras con procedimiento y diagrama</h2>
+  <p class="sub">Elige el tipo de ejercicio, cambia los datos y obtén el resultado, el paso a paso y el diagrama de flujo.</p>
+  <div class="pills" id="pills"></div>
+  <div class="cw">
+   <div class="calc"><h3 id="c_t"></h3><div class="f" id="c_f"></div><div class="acts" style="margin-top:14px"><button type="button" class="btn xl" id="c_go"><i class="fa-solid fa-equals"></i> Calcular</button><button type="button" class="btn s" id="c_rs"><i class="fa-solid fa-rotate-left"></i> Restablecer</button></div></div>
+   <div>
+    <div class="rbox" id="c_r"></div>
+    <h3 style="color:var(--verde);margin-bottom:8px">Procedimiento</h3>
+    <ol class="steps" id="c_s"></ol>
+    <h3 style="color:var(--verde);margin-bottom:8px">Diagrama del ejercicio</h3>
+    <div class="dg" id="c_d"></div>
+   </div>
+  </div>
  </section>
 </main>
 
 <footer>
- <img src="logo.jpg" alt="Escudo UAE"><br>
+ <img class="flogo" src="logo.jpg" alt="Escudo UAE" onerror="lf(this)"><br>
  <b>Universidad Agraria del Ecuador</b><br>Proyecto Integrador de Matemática Financiera · Grupo 10 · Paralelo 6C
 </footer>
+<button type="button" class="fab" id="fab" title="Ir a la calculadora" aria-label="Ir a la calculadora"><i class="fa-solid fa-calculator"></i></button>
+<input type="file" id="pick" accept="image/*" hidden>
 <div id="lb"><img alt="Imagen ampliada"></div>
 <div id="toast" role="status"></div>
 
@@ -172,18 +243,18 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "550483396639",
   appId: "1:550483396639:web:6b5d987e0b54b42cfe6d2a"
 };
-
 const CLAVE_BORRAR = "grupo10";
 const MIEMBROS = ["Asunción Morocho Ashley Danna", "Asunción Morocho Ashley Priscila", "Reyna Flores Geancarlos Alexander", "Jacqueline Patricia Díaz Solís", "Lilian Zamora"];
 const MAX_KB = 700;
 
 /* ====== UTILIDADES ====== */
 const $ = id => document.getElementById(id);
-const esc = s => String(s ?? '').replace(/[&<"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ini = n => n.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
 const fecha = t => new Date(t).toLocaleString('es-EC',{dateStyle:'medium',timeStyle:'short'});
 const money = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);t.h=setTimeout(()=>t.style.display='none',4000)}
+const r4 = n => (Math.round(n*1e4)/1e4).toString();
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',4000)}
 
 /* ====== PESTAÑAS ====== */
 function irTab(id){
@@ -194,12 +265,19 @@ function irTab(id){
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => irTab(b.dataset.t));
 
 /* ====== INTEGRANTES ====== */
-const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0','#2d6a4f'];
-$('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m"><div class="av" style="background:${colores[i % colores.length]}">${ini(n)}<img src="foto${i+1}.jpg" alt="${esc(n)}" onerror="this.remove()"></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
+const colores = ['#14624b','#1f7aa6','#b86e00','#7a4fb0','#c2410c'];
+let site = {};
+function reveal(){const els=document.querySelectorAll('.reveal:not(.vis)');if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('vis'));return}
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target)}}),{threshold:.1});els.forEach(e=>io.observe(e))}
+function renderTeam(){
+  $('team').innerHTML = MIEMBROS.map((n,i) => `<div class="m reveal"><div class="avw"><div class="av" style="background:${colores[i]}">${ini(n)}<img src="${site['f'+i]||'foto'+(i+1)+'.jpg'}" alt="${esc(n)}" onerror="this.remove()"></div><button type="button" class="camb" data-cam="${i}" title="Cambiar foto" aria-label="Cambiar foto de ${esc(n)}"><i class="fa-solid fa-camera"></i></button></div><b>${esc(n)}</b><span>Computación 6C</span></div>`).join('');
+  reveal();
+}
+renderTeam();
 
 /* ====== FORMULARIOS ====== */
 function formHTML(p, muro){
-  return `<h3 style="color:var(--verde);margin-bottom:12px">${muro ? 'Nueva publicación en el muro' : 'Previsualizar un archivo Excel local'}</h3>
+  return `<h3 style="color:var(--verde);margin-bottom:12px">${muro ? 'Nueva publicación en el muro' : 'Subir un archivo Excel, PDF o fotos a la nube'}</h3>
   <div class="f">
    <div class="fr">
     <div><label for="${p}_autor">Publica</label><select id="${p}_autor">${MIEMBROS.map(n => `<option>${esc(n)}</option>`).join('')}</select></div>
@@ -208,19 +286,20 @@ function formHTML(p, muro){
    <div><label for="${p}_tit">Título</label><input id="${p}_tit" placeholder="Ej: Ejercicio 1 · Conversión de tasas"></div>
    <div><label for="${p}_txt">${muro ? 'Procedimiento o explicación' : 'Descripción (opcional)'}</label><textarea id="${p}_txt" placeholder="${muro ? 'Escribe el paso a paso del ejercicio…' : 'Qué contiene este archivo…'}"></textarea></div>
    <div><label for="${p}_arch">${muro ? 'Fotos (hasta 4) o un archivo Excel, PDF o Word' : 'Archivo Excel (.xlsx, .xls, .csv), PDF, Word o fotos'} · máx. ${MAX_KB} KB</label><input type="file" id="${p}_arch" multiple accept="image/*,.xlsx,.xls,.csv,.pdf,.docx"><small id="${p}_info" style="color:var(--gris)"></small></div>
-   <div><label for="${p}_link">Enlace de Drive u OneDrive (opcional)</label><input id="${p}_link" type="url" placeholder="https://drive.google.com/…"></div>
+   <div><label for="${p}_link">Enlace de Drive u OneDrive (opcional, para archivos grandes)</label><input id="${p}_link" type="url" placeholder="https://drive.google.com/…"></div>
    <div id="${p}_err" class="aviso" style="display:none;background:#fde8e8;border-color:#d33" role="alert"></div>
-   <button type="button" class="btn ${muro ? '' : 'xl'}" id="${p}_btn">${muro ? 'Publicar en el muro' : 'Mostrar archivo en vista previa'}</button>
+   <button type="button" class="btn ${muro ? '' : 'xl'}" id="${p}_btn"><i class="fa-solid fa-cloud-arrow-up"></i> ${muro ? 'Publicar en el muro' : 'Subir a la nube'}</button>
   </div>`;
 }
 $('form_muro').innerHTML = formHTML('p', true);
 $('form_arch').innerHTML = formHTML('x', false);
 
 /* ====== ALMACENAMIENTO (FIREBASE) ====== */
+let CFG = FIREBASE_CONFIG; try { const g = JSON.parse(localStorage.getItem('mf6c_fbcfg')); if (g && g.projectId && g.apiKey) CFG = g; } catch (e) {}
 let db = null;
-if (FIREBASE_CONFIG && typeof firebase !== 'undefined') { firebase.initializeApp(FIREBASE_CONFIG); db = firebase.firestore(); }
+try { if (CFG && typeof firebase !== 'undefined') { firebase.initializeApp(CFG); db = firebase.firestore(); } } catch (e) { console.error(e); }
 const LS = 'mf6c_posts';
-const loc = { get(){try{return JSON.parse(localStorage.getItem(LS))||[]}catch(e){return[]}}, set(a){localStorage.setItem(LS,JSON.stringify(a))} };
+const loc = { get(){try{return JSON.parse(localStorage.getItem(LS))||[]}catch(e){return[]}}, set(a){try{localStorage.setItem(LS,JSON.stringify(a))}catch(e){toast('Sin espacio local')}} };
 let cbLocal = null;
 function mutLocal(id, fn){const a=loc.get();const p=a.find(x=>x.id===id);if(p){fn(p);loc.set(a);cbLocal(a)}}
 const store = {
@@ -234,14 +313,14 @@ const store = {
   async comment(id,c){ if(db) await db.collection('posts').doc(id).update({coms:firebase.firestore.FieldValue.arrayUnion(c)}); else mutLocal(id,p=>(p.coms=p.coms||[]).push(c)); }
 };
 $('aviso').innerHTML = db
-  ? '<div class="aviso ok">Publicaciones en línea activas: todo el grupo y la profesora ven lo mismo en tiempo real.</div>'
-  : '<div class="aviso"><b>Nota:</b> Firebase se está conectando.</div>';
+  ? '<div class="aviso ok"><i class="fa-solid fa-cloud"></i> Publicaciones en línea activas: todo el grupo y la profesora ven lo mismo en tiempo real.</div>'
+  : '<div class="aviso"><b>Nota:</b> no se pudo conectar con Firebase; las publicaciones se guardan solo en este navegador.</div>';
 
 /* ====== MANEJO DE ARCHIVOS ====== */
 function leer(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=e=>ok(e.target.result);r.readAsDataURL(file)})}
 async function comprimir(file,max=900,q=.72){
   const src = await leer(file);
-  return new Promise((ok,no)=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height));const c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q))};i.src=src});
+  return new Promise((ok,no)=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height));const c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q))};i.src=src});
 }
 function enlaceArchivo(a, id){
   const ext = (a.nombre.split('.').pop() || '').toUpperCase();
@@ -271,13 +350,13 @@ async function publicar(p){
   $(p+'_err').style.display = 'none';
   if (!tit) return aviso('Escribe un título.');
   if (!txt && !files.length && !link) return aviso('Agrega una descripción, un archivo o un enlace.');
-  const btn = $(p+'_btn'), etiqueta = btn.textContent; btn.disabled = true; btn.textContent = 'Publicando…';
+  const btn = $(p+'_btn'), etiqueta = btn.innerHTML; btn.disabled = true; btn.textContent = 'Subiendo…';
   try {
     const imgs = []; let archivo = null;
     for (const f of files) {
       if (f.type.startsWith('image/')) { if (imgs.length < 4) imgs.push(await comprimir(f)); }
       else if (!archivo) {
-        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB.');
+        if (f.size > MAX_KB*1024) throw new Error('“'+f.name+'” pesa '+Math.round(f.size/1024)+' KB y el máximo es '+MAX_KB+' KB. Súbelo a Drive y pega el enlace.');
         archivo = {nombre:f.name, data:await leer(f)};
       }
     }
@@ -285,45 +364,40 @@ async function publicar(p){
     if (JSON.stringify(post).length > 950000) throw new Error('Los archivos pesan demasiado.');
     await store.add(post);
     ['tit','txt','arch','link'].forEach(k => $(p+'_'+k).value = ''); $(p+'_info').textContent = '';
-    toast('¡Publicado en línea con éxito!');
+    toast('¡Publicado en la nube con éxito!');
     (p === 'p' ? $('lista') : $('lista_arch')).scrollIntoView({behavior:'smooth'});
-  } catch (e) {
-    aviso('No se pudo publicar: ' + (e.message || e));
-  }
-  btn.disabled = false; btn.textContent = etiqueta;
+  } catch (e) { aviso('No se pudo publicar: ' + (e.message || e)); }
+  btn.disabled = false; btn.innerHTML = etiqueta;
 }
 ['p','x'].forEach(p => { $(p+'_btn').onclick = () => publicar(p); $(p+'_arch').onchange = () => info(p); });
 
 /* ====== RENDERIZAR MURO Y ARCHIVOS ====== */
-const COLORES_TIPO = {
-  'Ejercicio resuelto': '#14624b',
-  'Actividad': '#1f7aa6',
-  'Archivo Excel': '#b86e00',
-  'Concepto': '#7a4fb0'
-};
+const COLORES_TIPO = {'Ejercicio resuelto':'#14624b','Actividad':'#1f7aa6','Archivo Excel':'#b86e00','Concepto':'#7a4fb0'};
 const liked = new Set(JSON.parse(localStorage.getItem('mf6c_liked') || '[]'));
 let posts = [];
 function render(){
+  $('n_posts').textContent = posts.length;
+  const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
+  $('n_arch').textContent = conArch.length;
   $('lista').innerHTML = posts.length ? posts.map(p => `
   <article class="post" data-id="${esc(p.id)}" style="--c:${COLORES_TIPO[p.tipo]||'#14624b'}">
-   <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="logo.jpg" alt="UAE"></div>
+   <div class="ph"><div class="pa">${esc(ini(p.autor))}</div><div><b>${esc(p.autor)}</b><small>${fecha(p.ts)}</small></div><span class="tag">${esc(p.tipo)}</span><img class="plogo" src="${esc(site.logo||'logo.jpg')}" alt="UAE" onerror="lf(this)"></div>
    <h3>${esc(p.titulo)}</h3><div class="tx">${esc(p.texto)}</div>
    ${p.imgs && p.imgs.length ? `<div class="imgs">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div>` : ''}
    ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
-   <div class="acts"><button class="btn s" data-a="like">${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del">Borrar</button></div>
+   <div class="acts"><button class="btn s" data-a="like"><i class="fa-solid fa-thumbs-up"></i> ${liked.has(p.id)?'Te sirvió':'Me sirve'} · ${p.likes||0}</button><button class="btn s" data-a="del"><i class="fa-solid fa-trash"></i> Borrar</button></div>
    <div class="coms">
     ${(p.coms||[]).map(c=>`<div class="com"><b>${esc(c.n)}</b><small>${fecha(c.ts)}</small><br>${esc(c.t)}</div>`).join('') || '<small style="color:var(--gris)">Aún no hay comentarios.</small>'}
     <div class="cf"><input class="cn" placeholder="Tu nombre" maxlength="40" value="${esc(localStorage.getItem('mf6c_nombre')||'')}" aria-label="Tu nombre"><input class="ct" placeholder="Escribe un comentario…" maxlength="400" aria-label="Comentario"><button class="btn" data-a="com">Comentar</button></div>
    </div>
   </article>`).join('') : '<div class="vacio">Aún no hay publicaciones en el muro. ¡Sé la primera en publicar!</div>';
 
-  const conArch = posts.filter(p => p.archivo || p.link || (p.imgs && p.imgs.length));
   $('lista_arch').innerHTML = conArch.length ? conArch.map(p => `
    <div class="calc" data-id="${esc(p.id)}"><h3>${esc(p.titulo)}</h3><small style="color:var(--gris)">${esc(p.autor)} · ${fecha(p.ts)}</small>
    ${p.imgs && p.imgs.length ? `<div class="imgs" style="grid-template-columns:1fr 1fr">${p.imgs.map(s=>`<img src="${s}" alt="Foto" loading="lazy">`).join('')}</div><div>${p.imgs.map((s,i)=>`<button type="button" class="arch" data-dli="${esc(p.id)}:${i}">Descargar foto ${i+1}</button>`).join('')}</div>` : ''}
    ${p.archivo ? enlaceArchivo(p.archivo, p.id) : ''}${enlaceExterno(p)}
-   <div class="acts"><button class="btn s" data-a="del">Borrar</button></div></div>`).join('')
-   : '<div class="vacio" style="grid-column:1/-1">No hay archivos locales en esta vista. Recuerda que también tienes tu Carpeta de Google Drive arriba.</div>';
+   <div class="acts"><button class="btn s" data-a="del"><i class="fa-solid fa-trash"></i> Borrar</button></div></div>`).join('')
+   : '<div class="vacio" style="grid-column:1/-1">Aún no hay archivos subidos. También tienes la Carpeta de Google Drive arriba.</div>';
 }
 document.addEventListener('click', async e => {
   if (e.target.matches('.imgs img')) { $('lb').firstElementChild.src = e.target.src; $('lb').style.display = 'grid'; return; }
@@ -351,22 +425,145 @@ document.addEventListener('click', async e => {
 });
 store.sub(a => { posts = a; render(); });
 
-/* ====== CALCULADORAS ====== */
+/* ====== CALCULADORAS CON PROCEDIMIENTO Y DIAGRAMA ====== */
+const UNI = {'Años':1,'Meses':12,'Días (año comercial 360)':360};
+const campoT = [['t','Tiempo',2],['u','Unidad de tiempo','sel']];
 const calcs = [
- {t:'Interés simple', f:[['C','Capital ($)',1000],['i','Tasa anual (%)',5],['t','Tiempo (años)',2]],
-  r:v=>{const I=v.C*v.i/100*v.t;return [`Interés $${money(I)} · Monto $${money(v.C+I)}`,`I = ${v.C} × ${v.i/100} × ${v.t} = ${money(I)}; M = ${v.C} + ${money(I)}`]}},
- {t:'Descuento simple', f:[['M','Valor nominal ($)',2500],['d','Tasa de descuento (%)',8],['t','Tiempo (años)',1.5]],
-  r:v=>{const D=v.M*v.d/100*v.t;return [`Descuento $${money(D)} · Valor actual $${money(v.M-D)}`,`D = ${v.M} × ${v.d/100} × ${v.t} = ${money(D)}; VT = ${v.M} − ${money(D)}`]}},
- {t:'Interés compuesto', f:[['C','Capital ($)',1000],['i','Tasa por período (%)',6],['n','Períodos (n)',3]],
-  r:v=>{const M=v.C*Math.pow(1+v.i/100,v.n);return [`Monto $${money(M)} · Interés $${money(M-v.C)}`,`M = ${v.C} × (1 + ${v.i/100})^${v.n} = ${money(M)}`]}}
+ {id:'si', t:'Interés simple', ic:'fa-coins', f:[['C','Capital C ($)',1000],['i','Tasa anual i (%)',5],...campoT],
+  run(v){
+   const y=v.t/v.u, I=v.C*v.i/100*y, M=v.C+I;
+   return {res:[['Interés I',I],['Monto M',M]],
+    steps:[`Datos: C = $${money(v.C)}, i = ${v.i}% anual = ${r4(v.i/100)}, t = ${v.t} ${v.un} = ${r4(y)} años.`,
+     `Interés: I = C · i · t = ${money(v.C)} × ${r4(v.i/100)} × ${r4(y)} = <b>$${money(I)}</b>`,
+     `Monto: M = C + I = ${money(v.C)} + ${money(I)} = <b>$${money(M)}</b>`],
+    d:{a:['Capital C',v.C,'dn'],b:['Monto M',M,'up'],n:`${v.t} ${v.un}`,y,f:x=>v.C+v.C*v.i/100*x}};
+  }},
+ {id:'ds', t:'Descuento simple', ic:'fa-scissors', f:[['M','Valor nominal M ($)',2500],['d','Tasa de descuento d (%)',8],...campoT],
+  run(v){
+   const y=v.t/v.u, D=v.M*v.d/100*y, VT=v.M-D;
+   return {res:[['Descuento D',D],['Valor actual VT',VT]],
+    steps:[`Datos: M = $${money(v.M)}, d = ${v.d}% anual = ${r4(v.d/100)}, t = ${v.t} ${v.un} = ${r4(y)} años.`,
+     `Descuento: D = M · d · t = ${money(v.M)} × ${r4(v.d/100)} × ${r4(y)} = <b>$${money(D)}</b>`,
+     `Valor actual: VT = M − D = ${money(v.M)} − ${money(D)} = <b>$${money(VT)}</b>`],
+    d:{a:['Recibo hoy VT',VT,'up'],b:['Pago nominal M',v.M,'dn'],n:`${v.t} ${v.un}`,y,f:x=>v.M-v.M*v.d/100*(y-x)}};
+  }},
+ {id:'ic', t:'Interés compuesto', ic:'fa-chart-line', f:[['C','Capital C ($)',1000],['j','Tasa nominal anual j (%)',6],['m','Capitalizaciones por año m',12],['t','Tiempo (años)',3]],
+  run(v){
+   const m=v.m||1, i=v.j/100/m, n=m*v.t, M=v.C*Math.pow(1+i,n), I=M-v.C;
+   return {res:[['Monto M',M],['Interés I',I]],
+    steps:[`Datos: C = $${money(v.C)}, j = ${v.j}%, m = ${m}, t = ${v.t} años.`,
+     `Tasa por período: i = j / m = ${r4(v.j/100)} / ${m} = ${r4(i)}`,
+     `Número de períodos: n = m · t = ${m} × ${v.t} = ${r4(n)}`,
+     `Monto: M = C · (1 + i)ⁿ = ${money(v.C)} × (1 + ${r4(i)})^${r4(n)} = <b>$${money(M)}</b>`,
+     `Interés: I = M − C = ${money(M)} − ${money(v.C)} = <b>$${money(I)}</b>`],
+    d:{a:['Capital C',v.C,'dn'],b:['Monto M',M,'up'],n:`${v.t} años`,y:v.t,f:x=>v.C*Math.pow(1+i,m*x)}};
+  }},
+ {id:'vp', t:'Valor presente', ic:'fa-hourglass-half', f:[['M','Monto futuro M ($)',1500],['j','Tasa nominal anual j (%)',6],['m','Capitalizaciones por año m',12],['t','Tiempo (años)',3]],
+  run(v){
+   const m=v.m||1, i=v.j/100/m, n=m*v.t, C=v.M/Math.pow(1+i,n);
+   return {res:[['Valor presente C',C],['Descuento total',v.M-C]],
+    steps:[`Datos: M = $${money(v.M)}, j = ${v.j}%, m = ${m}, t = ${v.t} años.`,
+     `Tasa por período: i = j / m = ${r4(i)}; períodos: n = m · t = ${r4(n)}`,
+     `Valor presente: C = M / (1 + i)ⁿ = ${money(v.M)} / (1 + ${r4(i)})^${r4(n)} = <b>$${money(C)}</b>`],
+    d:{a:['Invierto hoy C',C,'dn'],b:['Recibo M',v.M,'up'],n:`${v.t} años`,y:v.t,f:x=>C*Math.pow(1+i,m*x)}};
+  }},
+ {id:'te', t:'Tasa efectiva (TEA)', ic:'fa-percent', f:[['j','Tasa nominal anual j (%)',12],['m','Capitalizaciones por año m',12]],
+  run(v){
+   const m=v.m||1, i=v.j/100/m, e=Math.pow(1+i,m)-1;
+   return {res:[['Tasa por período i',i*100,'%'],['Tasa efectiva anual',e*100,'%']],
+    steps:[`Datos: j = ${v.j}% nominal anual, capitalización m = ${m} veces al año.`,
+     `Tasa por período: i = j / m = ${r4(v.j/100)} / ${m} = ${r4(i)}`,
+     `Tasa efectiva: TEA = (1 + i)ᵐ − 1 = (1 + ${r4(i)})^${m} − 1 = <b>${(e*100).toFixed(4)}%</b>`,
+     `Comprobación con $100: al cabo de un año crece a $${money(100*(1+e))}.`],
+    d:{a:['Capital $100',100,'dn'],b:['Monto al año',100*(1+e),'up'],n:'1 año',y:1,f:x=>100*Math.pow(1+i,m*x)}};
+  }}
 ];
-$('calcs').innerHTML = calcs.map((c,k) => `<div class="calc" data-k="${k}"><h3>${c.t}</h3><div class="f">${c.f.map(([n,l,d])=>`<div><label>${l}</label><input type="number" step="any" data-n="${n}" value="${d}"></div>`).join('')}</div><div class="res"></div></div>`).join('');
-function calcular(box){
-  const c = calcs[box.dataset.k], v = {};
-  box.querySelectorAll('input').forEach(i => v[i.dataset.n] = parseFloat(i.value) || 0);
-  const [a,b] = c.r(v); box.querySelector('.res').innerHTML = `<b>${a}</b><small>${b}</small>`;
+let cur = 0;
+function pillsHTML(){ $('pills').innerHTML = calcs.map((c,k)=>`<button type="button" class="pill ${k===cur?'on':''}" data-k="${k}"><i class="fa-solid ${c.ic}"></i> ${c.t}</button>`).join(''); }
+function camposHTML(){
+  const c = calcs[cur]; $('c_t').textContent = c.t;
+  $('c_f').innerHTML = c.f.map(([n,l,d]) => d==='sel'
+    ? `<div><label for="f_${n}">${l}</label><select id="f_${n}" data-n="${n}">${Object.keys(UNI).map(k=>`<option value="${UNI[k]}">${k}</option>`).join('')}</select></div>`
+    : `<div><label for="f_${n}">${l}</label><input id="f_${n}" type="number" step="any" min="0" data-n="${n}" value="${d}"></div>`).join('');
 }
-document.querySelectorAll('#calcs .calc').forEach(box => { calcular(box); box.addEventListener('input', () => calcular(box)); });
+function diagrama(d){
+  const W=640, x0=70, x1=570, yl=105, f=d.f, P=6;
+  const vals=[...Array(P+1)].map((_,j)=>f(d.y*j/P)), mx=Math.max(...vals,d.a[1],d.b[1])||1;
+  const flecha=(x,dir,txt,val,col)=>{const y2=dir==='up'?yl-70:yl+70, p=dir==='up'?-9:9;
+    return `<line x1="${x}" y1="${yl}" x2="${x}" y2="${y2}" stroke="${col}" stroke-width="4"/><polygon points="${x},${y2} ${x-8},${y2-p} ${x+8},${y2-p}" fill="${col}"/>
+    <text x="${x}" y="${dir==='up'?y2-26:y2+26}" text-anchor="middle" font-weight="700" font-size="14" fill="${col}">${txt}</text>
+    <text x="${x}" y="${dir==='up'?y2-10:y2+42}" text-anchor="middle" font-size="14" fill="#16251f">$${money(val)}</text>`;};
+  let bars='', bw=44, gap=(x1-x0-bw)/P;
+  vals.forEach((v,j)=>{const h=Math.max(2,(v/mx)*95), x=x0-bw/2+gap*j+bw/2*0, y=300-h;
+    bars+=`<rect x="${x0+gap*j-bw/2}" y="${y}" width="${bw}" height="${h}" rx="5" fill="${j===P?'#f2b705':'#14624b'}" opacity="${.45+.55*j/P}"/>
+     <text x="${x0+gap*j}" y="${y-5}" text-anchor="middle" font-size="11" fill="#16251f">${money(v)}</text>`;});
+  return `<svg viewBox="0 0 ${W} 330" role="img" aria-label="Diagrama de flujo de caja y crecimiento">
+   <rect width="${W}" height="330" fill="#fbfdfb"/>
+   <text x="14" y="20" font-weight="700" font-size="13" fill="#14624b">Diagrama de tiempo (flujo de efectivo)</text>
+   <line x1="${x0}" y1="${yl}" x2="${x1}" y2="${yl}" stroke="#0b3b2e" stroke-width="3"/>
+   <polygon points="${x1+14},${yl} ${x1+2},${yl-6} ${x1+2},${yl+6}" fill="#0b3b2e"/>
+   <circle cx="${x0}" cy="${yl}" r="6" fill="#f2b705"/><circle cx="${x1}" cy="${yl}" r="6" fill="#f2b705"/>
+   <text x="${x0}" y="${yl+18}" text-anchor="middle" font-size="12" fill="#5d6e66">t = 0</text>
+   <text x="${x1}" y="${yl+18}" text-anchor="middle" font-size="12" fill="#5d6e66">t = ${esc(d.n)}</text>
+   ${flecha(x0,d.a[2]==='up'?'up':'down',d.a[0],d.a[1],d.a[2]==='up'?'#1d6f42':'#c2410c')}
+   ${flecha(x1,d.b[2]==='up'?'up':'down',d.b[0],d.b[1],d.b[2]==='up'?'#1d6f42':'#c2410c')}
+   <text x="14" y="215" font-weight="700" font-size="13" fill="#14624b">Evolución del valor en el tiempo</text>
+   <line x1="${x0-30}" y1="300" x2="${x1+30}" y2="300" stroke="#bccdc3"/>
+   <text x="${x0}" y="318" text-anchor="middle" font-size="11" fill="#5d6e66">Inicio</text><text x="${x1}" y="318" text-anchor="middle" font-size="11" fill="#5d6e66">Final</text>
+  </svg>`.replace('</svg>', bars+'</svg>');
+}
+function calcular(){
+  const c = calcs[cur], v = {};
+  $('c_f').querySelectorAll('[data-n]').forEach(el => { v[el.dataset.n] = parseFloat(el.value) || 0; if (el.tagName==='SELECT') v.un = el.options[el.selectedIndex].text.split(' ')[0].toLowerCase(); });
+  if (!v.u) v.u = 1;
+  const o = c.run(v);
+  $('c_r').innerHTML = o.res.map(([l,x,s]) => `<div class="rk"><small>${l}</small><b>${s==='%' ? x.toFixed(4)+'%' : '$'+money(x)}</b></div>`).join('');
+  $('c_s').innerHTML = o.steps.map(s => `<li>${s}</li>`).join('');
+  $('c_d').innerHTML = diagrama(o.d);
+}
+$('pills').addEventListener('click', e => { const b = e.target.closest('.pill'); if (!b) return; cur = +b.dataset.k; pillsHTML(); camposHTML(); calcular(); });
+$('c_f').addEventListener('input', calcular);
+pillsHTML(); camposHTML(); calcular();
+
+/* ====== PORTADA Y FOTOS DE PERFIL ====== */
+let siteCb = null, pickTarget = null;
+const cfgStore = {
+  sub(cb){ if (db) db.collection('config').doc('site').onSnapshot(d => cb(d.exists ? d.data() : {}), () => {}); else { siteCb = cb; cb(JSON.parse(localStorage.getItem('mf6c_site') || '{}')); } },
+  async set(o){ if (db) await db.collection('config').doc('site').set(o, {merge:true}); else { const a = Object.assign(JSON.parse(localStorage.getItem('mf6c_site') || '{}'), o); localStorage.setItem('mf6c_site', JSON.stringify(a)); siteCb(a); } }
+};
+cfgStore.sub(o => { site = o || {}; $('banner_img').style.display = ''; $('banner_img').src = site.banner || 'banner.jpg'; renderTeam(); const L = site.logo || 'logo.jpg'; document.querySelectorAll('.logo,.flogo').forEach(i => i.src = L); $('favicon').href = L; render(); });
+$('logo_btn').onclick = () => { pickTarget = 'logo'; $('pick').value = ''; $('pick').click(); };
+$('banner_btn').onclick = () => { pickTarget = 'banner'; $('pick').value = ''; $('pick').click(); };
+$('team').addEventListener('click', e => { const b = e.target.closest('[data-cam]'); if (b) { pickTarget = b.dataset.cam; $('pick').value = ''; $('pick').click(); } });
+$('pick').onchange = async () => {
+  const f = $('pick').files[0]; if (!f) return;
+  if (prompt('Clave del grupo para cambiar la imagen:') !== CLAVE_BORRAR) return toast('Clave incorrecta.');
+  try {
+    const b = pickTarget === 'banner';
+    let d = await comprimir(f, b ? 1400 : 400, b ? .72 : .85);
+    if (b && d.length > 700000) d = await comprimir(f, 1000, .6);
+    await cfgStore.set({[b ? 'banner' : pickTarget === 'logo' ? 'logo' : 'f'+pickTarget]:d});
+    toast('¡Imagen actualizada para todos!');
+  } catch (e) { toast('No se pudo subir: ' + (e.message || e)); }
+};
+
+/* ====== CONEXIÓN FIREBASE ====== */
+function estado(ok, msg){ const c = $('fbchip'); c.textContent = msg; c.style.background = ok ? '#bfe35a' : '#ffb4b4'; }
+if (db) db.collection('config').doc('site').get().then(() => estado(true, 'Firebase conectado')).catch(e => estado(false, e.code === 'permission-denied' ? 'Firebase: revisa las reglas' : 'Firebase sin conexión'));
+else estado(false, 'Modo local (sin Firebase)');
+$('fb_btn').onclick = () => { const p = $('fb_panel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; };
+$('fb_save').onclick = () => {
+  const o = {}; $('fb_txt').value.replace(/["']?(\w+)["']?\s*:\s*["']([^"']+)["']/g, (m, k, v) => { o[k] = v; return m; });
+  if (!o.apiKey || !o.projectId) return toast('Pega la configuración completa (apiKey y projectId).');
+  localStorage.setItem('mf6c_fbcfg', JSON.stringify(o)); toast('Guardado. Reconectando…'); setTimeout(() => location.reload(), 900);
+};
+$('fb_reset').onclick = () => { localStorage.removeItem('mf6c_fbcfg'); toast('Configuración original restaurada.'); setTimeout(() => location.reload(), 700); };
+
+/* ====== BOTÓN CALCULAR, FAB Y ANIMACIONES ====== */
+$('c_go').onclick = () => { calcular(); document.querySelectorAll('.rk').forEach(el => el.classList.add('pop')); $('c_r').scrollIntoView({behavior:'smooth', block:'center'}); toast('Resultado calculado'); };
+$('c_rs').onclick = () => { camposHTML(); calcular(); };
+$('fab').onclick = () => irTab('calc');
+document.querySelectorAll('.st,.fcard,.panel').forEach(e => e.classList.add('reveal')); reveal();
 </script>
 </body>
 </html>
